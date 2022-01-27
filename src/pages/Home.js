@@ -10,7 +10,7 @@ const Home = () => {
       <div className="homeImage">
       <img src={home} alt="" />
         <div className="homeTitle">
-          <h1>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</h1>
+
         </div>
         
       </div>

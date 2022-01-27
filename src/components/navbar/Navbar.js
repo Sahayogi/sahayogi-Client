@@ -2,6 +2,8 @@ import "./Navbar.css";
 import logo from "../../assets/sahayogi.png";
 import React from "react";
 import styled from "styled-components";
+import Home from "../../pages/Home";
+import { Button } from "@material-ui/core";
 
 const Container = styled.div`
   height: 80px;
@@ -38,14 +40,31 @@ const NavbarRight = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  margin: 10px;
+  padding-right: 10px;
+  margin: 20px;
 `;
 
+const StyledButton = styled.button`
+  background-color: rgb(43, 41, 41);
+  color: white;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+`;
 const MenuItem = styled.div`
   display: flex;
+  justify-content: center;
+  align-self: auto;
+  gap: 1rem;
+`;
+const MenuTitle = styled.div`
+  display: flex;
   color: white;
+  font-size: 15px;
   align-items: center;
-  padding-right: 20px;
+  padding-right: 30px;
 `;
 
 const Navbar = () => {
@@ -57,8 +76,13 @@ const Navbar = () => {
         </NavbarLeft>
 
         <NavbarRight>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Login</MenuItem>
+          <MenuTitle>Home</MenuTitle>
+          <MenuTitle>About</MenuTitle>
+
+          <MenuItem>
+            <StyledButton>Register</StyledButton>
+            <StyledButton>Login</StyledButton>
+          </MenuItem>
 
           {/* <FiBell
             className="bell"
