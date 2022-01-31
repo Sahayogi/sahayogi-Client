@@ -4,10 +4,10 @@ import logo from "../assets/sahayogi.png";
 import { DetailContext } from "../App";
 const Login = () => {
   const { setIsLoginActive } = useContext(DetailContext);
-  //useeffect
+  
   setIsLoginActive(true);
   return (
-    <>
+    
       <div className="login">
         <div className="loginLeft">
           <div className="loginWrapper">
@@ -31,7 +31,7 @@ const Login = () => {
               </div>
 
               <button onClick={() => setIsLoginActive(false)}>
-                <Link to="/home">login</Link>
+                <Link to="/">login</Link>
               </button>
             </form>
             <div className="banner">
@@ -42,7 +42,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
+  
   );
 };
 

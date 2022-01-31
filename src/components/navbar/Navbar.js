@@ -1,18 +1,14 @@
-import "./Navbar.css";
 import logo from "../../assets/sahayogi.png";
 import React from "react";
 import styled from "styled-components";
-import Home from "../../pages/Home";
-import { Button } from "@material-ui/core";
-
-const Container = styled.div`
-  height: 80px;
-`;
-
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
+// import { Link as LinkR} from 'react-router-dom'
 const Wrapper = styled.div`
   position: sticky;
   top: 0;
-  height: 100%;
+  height: 80px;
   display: flex;
   background-image: linear-gradient(
     to left,
@@ -29,11 +25,43 @@ const Wrapper = styled.div`
     #222323,
     #202120
   );
+  @media screen and (max-width: 768px) {
+    display: flex;
+    position: relative;
+  }
 `;
 const NavbarLeft = styled.div`
   cursor: pointer;
   flex: 1;
   display: flex;
+`;
+const NavbarCenter = styled.div`
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 20px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileIcon = styled.div`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    position: absolute;
+    color: white;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
 `;
 const NavbarRight = styled.div`
   cursor: pointer;
@@ -42,9 +70,12 @@ const NavbarRight = styled.div`
   justify-content: flex-end;
   padding-right: 10px;
   margin: 20px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.div`
   background-color: rgb(43, 41, 41);
   color: white;
   font-size: 15px;
@@ -67,30 +98,47 @@ const MenuTitle = styled.div`
   padding-right: 30px;
 `;
 
+// const NavLinks = styled(LinkR)`
+//   display: flex;
+//   color: white;
+//   font-size: 15px;
+//   align-items: center;
+//   padding-right: 30px;
+// `;
+
 const Navbar = () => {
   return (
-    <Container>
+    <>
       <Wrapper>
         <NavbarLeft>
           <img src={logo} alt="" />
         </NavbarLeft>
+        <NavbarCenter>
+          <LocalPhoneIcon />
+          9810444204
+        </NavbarCenter>
+
+        <MobileIcon>
+          <FaBars />
+        </MobileIcon>
 
         <NavbarRight>
-          <MenuTitle>Home</MenuTitle>
-          <MenuTitle>About</MenuTitle>
-
+          <Link to="/">
+            <MenuTitle>Home</MenuTitle>
+          </Link>
+          <Link to="/about">
+            <MenuTitle>About</MenuTitle>
+          </Link>
+          <Link to="/donationProjects">
+            <MenuTitle>Donate</MenuTitle>
+          </Link>
           <MenuItem>
-            <StyledButton>Register</StyledButton>
-            <StyledButton>Login</StyledButton>
+          <Link to="/register"> <StyledButton>Register</StyledButton></Link>
+          <Link to="/login">  <StyledButton>Login</StyledButton></Link>
           </MenuItem>
-
-          {/* <FiBell
-            className="bell"
-            onClick={() => setNotification(!notification)}
-          /> */}
         </NavbarRight>
       </Wrapper>
-    </Container>
+    </>
   );
 };
 
