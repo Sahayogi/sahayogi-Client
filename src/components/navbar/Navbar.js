@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/UserContext";
 // import { Link as LinkR} from 'react-router-dom'
 const Wrapper = styled.div`
   position: sticky;
@@ -98,15 +99,10 @@ const MenuTitle = styled.div`
   padding-right: 30px;
 `;
 
-// const NavLinks = styled(LinkR)`
-//   display: flex;
-//   color: white;
-//   font-size: 15px;
-//   align-items: center;
-//   padding-right: 30px;
-// `;
 
 const Navbar = () => {
+
+  const {data:{role}} = useAuth();
   return (
     <>
       <Wrapper>
@@ -129,8 +125,11 @@ const Navbar = () => {
           <Link to="/about">
             <MenuTitle>About</MenuTitle>
           </Link>
-          <Link to="/donationProjects">
+          <Link to="/donate">
             <MenuTitle>Donate</MenuTitle>
+          </Link>
+          <Link to="/donationProject">
+            <MenuTitle>Projects</MenuTitle>
           </Link>
           <MenuItem>
           <Link to="/register"> <StyledButton>Register</StyledButton></Link>

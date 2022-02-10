@@ -1,66 +1,88 @@
 import React from "react";
 import styled from "styled-components";
+import vendorImg from "../../assets/vendor.png";
+import donorImg from "../../assets/donor.jpg";
+import beneficiaryImg from "../../assets/bene.jpg";
+import bankImg from "../../assets/bank.jpg";
+
+import { Link, link } from "react-router-dom";
 
 const Container = styled.div`
   flex: 1;
   margin: 4px;
-  height: 50vh;
-  position: relative;
- 
+  height: 40vh;
+  /* position: relative; */
 `;
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  object-fit: cover;
-`;
-const Info = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+const ImageContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  align-content: center;
+  flex: 1;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  /* padding: 60px 250px; */
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
 `;
+const SubContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  object-fit: cover;
+  cursor: pointer;
+
+  padding-right: 10px;
+`;
+
 const Title = styled.h1`
+  padding-top: 5px;
   color: white;
   margin-bottom: 20px;
 `;
-
-const Dbutton = styled.button`
-  border: none;
-  padding: 10px;
-  background-color: green;
-  cursor: pointer;
-  color: white;
-  font-weight: 600;
-  &:hover {
-    background-color: grey;
-  }
-`;
-const Status = styled.div`
-  background-color: salmon;
-  padding: 5px;
-  color: white;
-  border: none;
-  margin-bottom: 30px;
-`;
-
-const MidContent = ({ item }) => {
+const MidContent = ({}) => {
   return (
     <Container>
-      <Image src={item.img} />
+      <ImageContainer>
+        <SubContainer>
+          <Link to="/vendor">
+            <Image src={vendorImg} alt="" />
+          </Link>
+          <Title>vendor</Title>
+        </SubContainer>
 
-      <Info>
-       
-        <Title>{item.title}</Title>
-       
-        <Dbutton>DONATE</Dbutton>
-      </Info>
+        <SubContainer>
+          <Link to="/bank">
+            <Image src={bankImg} alt="" />
+          </Link>
+          <Title>bank</Title>
+        </SubContainer>
+        <SubContainer>
+          <Link to="/beneficiary">
+            <Image src={beneficiaryImg} alt="" />
+          </Link>
+          <Title>beneficiary</Title>
+        </SubContainer>
+        <SubContainer>
+          <Link to="donate">
+            <Image src={donorImg} alt="" />
+          </Link>
+          <Title>donor</Title>
+        </SubContainer>
+      </ImageContainer>
     </Container>
   );
 };

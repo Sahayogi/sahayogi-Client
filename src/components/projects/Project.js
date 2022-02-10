@@ -6,7 +6,6 @@ const Container = styled.div`
   margin: 4px;
   height: 50vh;
   position: relative;
- 
 `;
 const Image = styled.img`
   width: 100%;
@@ -50,7 +49,7 @@ const Status = styled.div`
   margin-bottom: 30px;
 `;
 
-const Project = ({ item }) => {
+const Project = ({ item, donate }) => {
   return (
     <Container>
       <Image src={item.img} />
@@ -59,7 +58,7 @@ const Project = ({ item }) => {
         <Status>{item.status}</Status>
         <Title>{item.title}</Title>
         <Title>Donations:{item.donations}</Title>
-        <Dbutton>DONATE</Dbutton>
+        {donate && <Dbutton>DONATE</Dbutton>}
       </Info>
     </Container>
   );

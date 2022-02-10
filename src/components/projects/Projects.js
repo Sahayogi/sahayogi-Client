@@ -14,12 +14,13 @@ const Container = styled.div`
     flex-direction: column;
   }
 `;
-const Projects = () => {
+const Projects = ({donate}) => {
+  
   return (
     <>
       <Container>
         {projects.map((item) => (
-          <Project item={item} />
+          <Project item={item} donate={donate}/>
         ))}
       </Container>
     </>

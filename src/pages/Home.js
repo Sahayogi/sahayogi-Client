@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Footer from "../components/footer /Footer";
-import Navbar from "../components/navbar/Navbar";
+import MidContents from "../components/midcontents/MidContents";
 import Projects from "../components/projects/Projects";
 
 const Container = styled.div`
@@ -25,6 +25,7 @@ const Home = () => {
         {/* <Photo src="https://www.humanosphere.org/wp-content/uploads/2015/04/NepalQuakesurvivors20151.jpg" /> */}
         <Photo src="https://s.wsj.net/public/resources/images/BN-ID089_042815_M_20150428095046.jpg" />
       </Container>
+      <MidContents/>
       <Projects/>
       <Footer />
     </>
