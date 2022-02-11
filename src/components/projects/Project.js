@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Metamask from "../metamask/Metamask";
 
 const Container = styled.div`
   flex: 1;
@@ -50,6 +51,7 @@ const Status = styled.div`
 `;
 
 const Project = ({ item, donate }) => {
+
   return (
     <Container>
       <Image src={item.img} />
@@ -58,7 +60,7 @@ const Project = ({ item, donate }) => {
         <Status>{item.status}</Status>
         <Title>{item.title}</Title>
         <Title>Donations:{item.donations}</Title>
-        {donate && <Dbutton>DONATE</Dbutton>}
+        {donate && <Dbutton >DONATE</Dbutton>}
       </Info>
     </Container>
   );

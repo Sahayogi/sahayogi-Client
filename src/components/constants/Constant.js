@@ -1,3 +1,6 @@
+import LogoutIcon from "@mui/icons-material/Logout";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+
 export const projects = [
   {
     id: 1,
@@ -19,5 +22,18 @@ export const projects = [
     img: "https://www.thethirdpole.net/content/uploads/2014/08/Sindhupalchowk-landslide-Nepal.jpg",
     donations: 2000,
     status:"active"
+  },
+];
+
+export const dropDownMenu =[
+  {
+    title: "Transactions",
+    icon: <CompareArrowsIcon/>,
+    path: "/transaction",
+  },
+  {
+    title: "Logout",
+    icon: <LogoutIcon />,
+    path: "",
   },
 ];

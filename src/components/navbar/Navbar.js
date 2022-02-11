@@ -1,10 +1,11 @@
 import logo from "../../assets/sahayogi.png";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { FaBars } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/UserContext";
+import Metamask from "../metamask/Metamask";
+import DropDown from "../metamask/DropDown";
 // import { Link as LinkR} from 'react-router-dom'
 const Wrapper = styled.div`
   position: sticky;
@@ -99,23 +100,20 @@ const MenuTitle = styled.div`
   padding-right: 30px;
 `;
 
-
 const Navbar = () => {
+  const [click, setClick] = useState(false);
+  const handleClick = () => setClick(!click);
+ 
 
-  const {data:{role}} = useAuth();
   return (
     <>
       <Wrapper>
         <NavbarLeft>
           <img src={logo} alt="" />
         </NavbarLeft>
-        <NavbarCenter>
-          <LocalPhoneIcon />
-          9810444204
-        </NavbarCenter>
 
-        <MobileIcon>
-          <FaBars />
+        <MobileIcon onClick={handleClick}>
+          {click ? <FaArrowLeft/>: <FaBars />}
         </MobileIcon>
 
         <NavbarRight>
@@ -132,10 +130,12 @@ const Navbar = () => {
             <MenuTitle>Projects</MenuTitle>
           </Link>
           <MenuItem>
-          <Link to="/register"> <StyledButton>Register</StyledButton></Link>
-          <Link to="/login">  <StyledButton>Login</StyledButton></Link>
+            <Metamask />
+            {/* <Link to="/register"> <StyledButton>Register</StyledButton></Link> */}
+            {/* <Link to="/login">  <StyledButton>Login</StyledButton></Link> */}
           </MenuItem>
         </NavbarRight>
+       
       </Wrapper>
     </>
   );
