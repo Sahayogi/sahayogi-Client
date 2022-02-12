@@ -4,6 +4,8 @@ import styled from "styled-components";
 import DropDown from "./DropDown";
 const Container = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Connect = styled.button`
@@ -46,10 +48,15 @@ const Metamask = () => {
   return (
     <Container>
       <Connect variant="contained" onClick={connectMetamask}>
-        {!!accountAddress ? accountAddress : "Connect Wallet"}
+        {!!accountAddress
+          ? `${accountAddress.slice(0, 6)}...${accountAddress.slice(
+              accountAddress.length - 4,
+              accountAddress.length
+            )}`
+          : "Connect Wallet"}
         {accountAddress && <KeyboardArrowDown onClick={handleClick} />}
-        {click && dropdown && <DropDown />}
       </Connect>
+      {click && dropdown && <DropDown />}
     </Container>
   );
 };

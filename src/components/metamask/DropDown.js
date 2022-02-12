@@ -5,33 +5,27 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  margin-top: 140px;
-
-  
- 
+  margin-top: 150px;
+`;
+const Wrapper = styled.div`
+  height: 100px;
+  width: 300px;
+  z-index: auto;
 `;
 const DropMenu = styled.div`
-  height: 100px;
-  z-index: auto;
-  width: 300px;
+  height: 100%;
+  width: 100%;
   background-color: black;
   color: white;
   display: flex;
   flex-direction: column;
-
-
-
-
- 
 `;
 const MenuItem = styled.div`
   display: flex;
   align-items: center;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   border: 1px white solid;
-  padding:10px;
-
- 
+  padding: 10px;
 `;
 
 const DropDown = () => {
@@ -42,9 +36,9 @@ const DropDown = () => {
 
   return (
     <Container onClick={handleClick}>
-      <DropMenu>
-        {
-          dropDownMenu.map((val) => {
+      <Wrapper>
+        <DropMenu>
+          {dropDownMenu.map((val) => {
             return (
               <Link to={val.path} onClick={() => setClick(false)}>
                 <MenuItem>
@@ -54,7 +48,8 @@ const DropDown = () => {
               </Link>
             );
           })}
-      </DropMenu>
+        </DropMenu>
+      </Wrapper>
     </Container>
   );
 };
