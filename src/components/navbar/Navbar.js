@@ -29,7 +29,8 @@ const Wrapper = styled.div`
   );
   @media screen and (max-width: 768px) {
     display: flex;
-    position: relative;
+    position: sticky;
+    top: 0;
   }
 `;
 const NavbarLeft = styled.div`
@@ -64,26 +65,23 @@ const NavbarRight = styled.div`
     display: none;
   }
 `;
+const MenuLink = styled.a`
+  display: flex;
+  padding-right: 2rem;
+  cursor: pointer;
+  text-align: center;
+  transform: all o.3s ease-in;
+  font-size: 15px;
+  &:hover {
+    color: black;
+  }
+`;
 
-// const StyledButton = styled.div`
-//   background-color: rgb(43, 41, 41);
-//   color: white;
-//   font-size: 15px;
-//   padding: 10px;
-//   border-radius: 10px;
-//   cursor: pointer;
-//   border: none;
-// `;
 const MenuItem = styled.div`
   display: flex;
   justify-content: center;
   align-self: auto;
   gap: 1rem;
-`;
-const MenuTitle = styled.div`
-  color: white;
-  font-size: 15px;
-  padding-right: 30px;
 `;
 
 const Navbar = () => {
@@ -101,25 +99,11 @@ const Navbar = () => {
           {click ? <FaArrowLeft /> : <FaBars />}
         </MobileIcon>
         <NavbarRight>
-          <Link to="/" >
-            <MenuTitle>Home</MenuTitle>
-          </Link>
-          <Link to="/about">
-            <MenuTitle>About</MenuTitle>
-          </Link>
-          <Link to="/donate">
-            <MenuTitle>Donate</MenuTitle>
-          </Link>
-          <Link to="/donationProject">
-            <MenuTitle>Projects</MenuTitle>
-          </Link>
-          {/* 
-          <Link to="/register">
-            <MenuTitle>Register</MenuTitle>
-          </Link> */}
-          <Link to="/login">
-            <MenuTitle>Login</MenuTitle>
-          </Link>
+          <MenuLink href="/">Home</MenuLink>
+          <MenuLink href="/about">About</MenuLink>
+          <MenuLink href="/donate">Donate</MenuLink>
+          <MenuLink href="/donationProject">Projects</MenuLink>
+          <MenuLink href="/login">Login</MenuLink>
           <MenuItem>
             <Metamask />
           </MenuItem>

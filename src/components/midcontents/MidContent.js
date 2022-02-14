@@ -5,24 +5,25 @@ import donorImg from "../../assets/donor.jpg";
 import beneficiaryImg from "../../assets/bene.jpg";
 import bankImg from "../../assets/bank.jpg";
 
-import { Link, link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
+  display: flex;
+  justify-content:center;
+  align-items:center;
   flex: 1;
   margin: 4px;
-  height: 40vh;
-  /* position: relative; */
+
 `;
 const ImageContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   justify-content: center;
   align-items: center;
   position: relative;
 
-  /* padding: 60px 250px; */
   @media screen and (max-width: 768px) {
     padding: 20px;
     display: flex;
@@ -77,7 +78,7 @@ const MidContent = ({}) => {
           <Title>beneficiary</Title>
         </SubContainer>
         <SubContainer>
-          <Link to="donate">
+          <Link to="/donate">
             <Image src={donorImg} alt="" />
           </Link>
           <Title>donor</Title>

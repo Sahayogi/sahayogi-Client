@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Metamask from "../metamask/Metamask";
 
 const Container = styled.div`
   flex: 1;

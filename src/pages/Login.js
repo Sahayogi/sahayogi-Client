@@ -29,7 +29,11 @@ const VisibilityButton = styled.button`
   width: 20%;
 `;
 
-const LoginLeft = styled.div`
+const LoginRight = styled.div`
+  background-color: grey;
+  flex: 100%;
+  display: flex;
+  position: relative;
   background-image: radial-gradient(
     circle,
     #3c3d3f,
@@ -38,15 +42,6 @@ const LoginLeft = styled.div`
     #191a19,
     #0d0d0c
   );
-  flex: 50%;
-  position: relative;
-  display: flex;
-`;
-const LoginRight = styled.div`
-  background-color: grey;
-  flex: 50%;
-  display: flex;
-  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -144,16 +139,10 @@ const Login = () => {
 
   return (
     <Container>
-      <LoginLeft>
-        <Wrapper>
-          <img src={logo} alt="" />
-          <h1>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</h1>
-        </Wrapper>
-      </LoginLeft>
-
+   
       <LoginRight>
         <Wrapper>
-          <h1>Login</h1>
+          <h1>LOGIN</h1>
           <LoginForm>
             <InputLabel htmlFor="email"> Email: </InputLabel>
             <LoginInput

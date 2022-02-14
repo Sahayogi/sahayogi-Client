@@ -5,4 +5,3 @@ const Vendor = () => {
 };
 
 export default Vendor;
-w

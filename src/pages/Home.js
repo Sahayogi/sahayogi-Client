@@ -3,10 +3,11 @@ import styled from "styled-components";
 import Footer from "../components/footer /Footer";
 import MidContents from "../components/midcontents/MidContents";
 import Projects from "../components/projects/Projects";
+import home from "../assets/home.jpg"
 
 const Container = styled.div`
   display: flex;
-  height: 60vh;
+  height: 65vh;
   flex-direction: column;
 `;
 const Photo = styled.img`
@@ -22,8 +23,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        {/* <Photo src="https://www.humanosphere.org/wp-content/uploads/2015/04/NepalQuakesurvivors20151.jpg" /> */}
-        <Photo src="https://s.wsj.net/public/resources/images/BN-ID089_042815_M_20150428095046.jpg" />
+        <Photo src={home} />
       </Container>
       <MidContents/>
       <Projects/>

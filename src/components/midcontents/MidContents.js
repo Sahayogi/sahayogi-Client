@@ -7,8 +7,14 @@ const Container = styled.div`
 display: flex;
 padding:60px 40px;
 justify-content: space-between;
-background-image: linear-gradient(to right bottom, #343233, #3e3d3f, #49494a, #545556, #606162, #656667, #696b6c, #6e7071, #6c6f70, #6a6e6f, #696e6e, #676d6d);
-
+background-image: radial-gradient(
+    circle,
+    #3c3d3f,
+    #2f3132,
+    #242525,
+    #191a19,
+    #0d0d0c
+  );
 @media screen and (max-width: 768px) {
    
     display: flex;
