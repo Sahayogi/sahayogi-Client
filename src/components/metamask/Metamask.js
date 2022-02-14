@@ -17,7 +17,7 @@ const Connect = styled.button`
   display: flex;
   border: none;
   border-radius: 4rem;
-  background-color: black;
+  background-color: rgb(61, 60, 60);
   color: white;
 `;
 
@@ -39,6 +39,7 @@ const Metamask = () => {
     }
   };
   const [click, setClick] = useState(false);
+  const [disconnect,setDisconnect] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const handleClick = () => {
     setClick(!click);
@@ -48,7 +49,7 @@ const Metamask = () => {
   return (
     <Container>
       <Connect variant="contained" onClick={connectMetamask}>
-        {!!accountAddress
+        {(!!accountAddress )
           ? `${accountAddress.slice(0, 6)}...${accountAddress.slice(
               accountAddress.length - 4,
               accountAddress.length
@@ -56,7 +57,8 @@ const Metamask = () => {
           : "Connect Wallet"}
         {accountAddress && <KeyboardArrowDown onClick={handleClick} />}
       </Connect>
-      {click && dropdown && <DropDown />}
+      {accountAddress && click && dropdown  && <DropDown />}
+      {}
     </Container>
   );
 };

@@ -2,16 +2,40 @@ import logo from "../../assets/sahayogi.png";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaBars } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+// import { FaArrowLeft } from "react-icons/fa";
+
 import Metamask from "../metamask/Metamask";
-import DropDown from "../metamask/DropDown";
-// import { Link as LinkR} from 'react-router-dom'
-const Wrapper = styled.div`
-  position: sticky;
-  top: 0;
-  height: 80px;
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Nav>
+      <NavLeft>
+        <img src={logo} alt="" />
+      </NavLeft>
+      <MobileMenu onClick={() => setIsOpen(!isOpen)}>
+        <FaBars />
+      </MobileMenu>
+
+      <NavMenu>
+        <MenuLink href="/">Home</MenuLink>
+        <MenuLink href="/about">About</MenuLink>
+        <MenuLink href="/donate">Donate</MenuLink>
+        <MenuLink href="/projects">Projects</MenuLink>
+        <MenuLink href="/login">Login</MenuLink>
+        <Metamask />
+      </NavMenu>
+    </Nav>
+  );
+};
+
+const Nav = styled.div`
+  padding: 0 1rem;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   background-image: linear-gradient(
     to left,
     #8c908c,
@@ -27,118 +51,45 @@ const Wrapper = styled.div`
     #222323,
     #202120
   );
+`;
+const NavLeft = styled.div`
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+`;
+const MobileMenu = styled.div`
+  font-size: 1.8rem;
+  color: white;
+  display: none;
+  cursor: pointer;
+
   @media screen and (max-width: 768px) {
     display: flex;
-    position: relative;
+    flex-direction: column;
   }
 `;
-const NavbarLeft = styled.div`
-  cursor: pointer;
-  flex: 1;
+const NavMenu = styled.div`
   display: flex;
-`;
-const NavbarCenter = styled.div`
-  cursor: pointer;
-  flex: 1;
-  display: flex;
-  color: white;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  margin: 20px;
+  position: relative;
   @media screen and (max-width: 768px) {
-    display: none;
+    overflow: hidden;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 20px;
   }
 `;
-
-const MobileIcon = styled.div`
-  display: none;
-
-  @media screen and (max-width: 768px) {
-    display: block;
-    position: absolute;
-    color: white;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
-`;
-const NavbarRight = styled.div`
+const MenuLink = styled.a`
+  padding: 1rem 2rem;
   cursor: pointer;
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 10px;
-  margin: 20px;
-  @media screen and (max-width: 768px) {
-    display: none;
+  text-align: center;
+  transform: all o.3s ease-in;
+  font-size: 20px;
+
+  &:hover {
+    color: black;
   }
 `;
-
-const StyledButton = styled.div`
-  background-color: rgb(43, 41, 41);
-  color: white;
-  font-size: 15px;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-`;
-const MenuItem = styled.div`
-  display: flex;
-  justify-content: center;
-  align-self: auto;
-  gap: 1rem;
-`;
-const MenuTitle = styled.div`
-  display: flex;
-  color: white;
-  font-size: 15px;
-  align-items: center;
-  padding-right: 30px;
-`;
-
-const Navbar = () => {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
- 
-
-  return (
-    <>
-      <Wrapper>
-        <NavbarLeft>
-          <img src={logo} alt="" />
-        </NavbarLeft>
-
-        <MobileIcon onClick={handleClick}>
-          {click ? <FaArrowLeft/>: <FaBars />}
-        </MobileIcon>
-
-        <NavbarRight>
-          <Link to="/">
-            <MenuTitle>Home</MenuTitle>
-          </Link>
-          <Link to="/about">
-            <MenuTitle>About</MenuTitle>
-          </Link>
-          <Link to="/donate">
-            <MenuTitle>Donate</MenuTitle>
-          </Link>
-          <Link to="/donationProject">
-            <MenuTitle>Projects</MenuTitle>
-          </Link>
-          <MenuItem>
-            <Metamask />
-            {/* <Link to="/register"> <StyledButton>Register</StyledButton></Link> */}
-            {/* <Link to="/login">  <StyledButton>Login</StyledButton></Link> */}
-          </MenuItem>
-        </NavbarRight>
-       
-      </Wrapper>
-    </>
-  );
-};
 
 export default Navbar;

@@ -1,4 +1,4 @@
-import LogoutIcon from "@mui/icons-material/Logout";
+// import LogoutIcon from "@mui/icons-material/Logout";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 
 export const projects = [
@@ -31,9 +31,9 @@ export const dropDownMenu =[
     icon: <CompareArrowsIcon/>,
     path: "/transaction",
   },
-  {
-    title: "Logout",
-    icon: <LogoutIcon />,
-    path: "",
-  },
+  // {
+  //   title: "Logout",
+  //   icon: <LogoutIcon />,
+  //   path: "",
+  // },
 ];
