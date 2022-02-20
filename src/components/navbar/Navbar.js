@@ -1,11 +1,11 @@
-import logo from "../../assets/sahayogi.png";
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FaBars } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Metamask from "../metamask/Metamask";
-import DropDown from "../metamask/DropDown";
+import logo from '../../assets/sahayogi.png';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { FaBars } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import Metamask from '../metamask/Metamask';
+import DropDown from '../metamask/DropDown';
 // import { Link as LinkR} from 'react-router-dom'
 const Wrapper = styled.div`
   position: sticky;
@@ -65,7 +65,7 @@ const NavbarRight = styled.div`
     display: none;
   }
 `;
-const MenuLink = styled.a`
+const MenuLink = styled.div`
   display: flex;
   padding-right: 2rem;
   cursor: pointer;
@@ -83,6 +83,9 @@ const MenuItem = styled.div`
   align-self: auto;
   gap: 1rem;
 `;
+const logoutHandle = () => {
+  localStorage.removeItem('access-token');
+};
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -92,18 +95,43 @@ const Navbar = () => {
     <>
       <Wrapper>
         <NavbarLeft>
-          <img src={logo} alt="" />
+          <img src={logo} alt='' />
         </NavbarLeft>
 
         <MobileIcon onClick={handleClick}>
           {click ? <FaArrowLeft /> : <FaBars />}
         </MobileIcon>
         <NavbarRight>
-          <MenuLink href="/">Home</MenuLink>
-          <MenuLink href="/about">About</MenuLink>
-          <MenuLink href="/donate">Donate</MenuLink>
-          <MenuLink href="/donationProject">Projects</MenuLink>
-          <MenuLink href="/login">Login</MenuLink>
+          <Link to='/'>
+            <MenuLink>Home</MenuLink>
+          </Link>
+          <Link to='/about'>
+            <MenuLink>About</MenuLink>
+          </Link>
+          <Link to='/donate'>
+            <MenuLink>Donate</MenuLink>
+          </Link>
+          <Link to='/donationProject'>
+            <MenuLink>Projects</MenuLink>
+          </Link>
+
+          <Link to='/login'>
+            <MenuLink>
+              {localStorage.getItem('access-token') ? (
+                <div
+                  type='button'
+                  onClick={() => {
+                    localStorage.removeItem('access-token');
+                  }}
+                >
+                  Logout
+                </div>
+              ) : (
+                'Login'
+              )}
+            </MenuLink>
+          </Link>
+
           <MenuItem>
             <Metamask />
           </MenuItem>

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import logo from "../assets/sahayogi.png";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useAuth } from "../context/UserContext";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import logo from '../assets/sahayogi.png';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useAuth } from '../context/UserContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100%;
@@ -115,13 +117,20 @@ const LoginButton = styled.button`
     align-items: center;
   }
 `;
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(!show);
   };
+  useEffect(() => {
+    if (localStorage.getItem('access-token')) {
+      navigate('/');
+    }
+  }, []);
 
   const {
     data,
@@ -131,30 +140,53 @@ const Login = () => {
     // loginError,
   } = useAuth();
 
-  const handleLogin = (e) => {
-    if (email === "anisha@gmail.com" && password === "12345") {
-      loadUser({ email });
+  // const handleLogin = (e) => {
+  //   if (email === "anisha@gmail.com" && password === "12345") {
+  //     loadUser({ email });
+  //   }
+  // };
+  const handleLogin = async (e) => {
+    console.log('j');
+    e.preventDefault();
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const { data } = await axios.post(
+        'http://localhost:5000/api/auth/login',
+        { email, password },
+        config
+      );
+      console.log(data);
+      localStorage.setItem('access-token', data.token);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      // setError(error.response.data.error);
+      // setTimeout(() => {
+      //   setError('');
+      // }, 5000);
     }
   };
-
   return (
     <Container>
-   
       <LoginRight>
         <Wrapper>
           <h1>LOGIN</h1>
           <LoginForm>
-            <InputLabel htmlFor="email"> Email: </InputLabel>
+            <InputLabel htmlFor='email'> Email: </InputLabel>
             <LoginInput
-              type="email"
+              type='email'
               value={email}
-              placeholder="email"
+              placeholder='email'
               onChange={(e) => setEmail(e.target.value)}
             />
-            <InputLabel htmlFor="password"> Password: </InputLabel>
+            <InputLabel htmlFor='password'> Password: </InputLabel>
             <PasswordField>
               <LoginInput
-                type={show ? "text" : "password"}
+                type={show ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -164,7 +196,7 @@ const Login = () => {
             </PasswordField>
 
             <LoginButton onClick={handleLogin}>
-              {data.loggingIn ? "logging In..." : "login"}
+              {data.loggingIn ? 'logging In...' : 'login'}
             </LoginButton>
           </LoginForm>
         </Wrapper>
