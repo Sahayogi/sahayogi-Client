@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   flex: 1;
   margin: 4px;
-
 `;
 const ImageContainer = styled.div`
   width: 100%;
@@ -54,9 +54,19 @@ const Title = styled.h1`
   color: white;
   margin-bottom: 20px;
 `;
+
+const TitleDiv = styled.div`
+     display: flex;
+     /* background-color: pink; */
+     padding:20px;
+`;
 const MidContent = ({}) => {
   return (
     <Container>
+      <TitleDiv>
+        <Title>IMPORTANT COMPONENTS OF OUR PROJECT</Title>
+      </TitleDiv>
+
       <ImageContainer>
         <SubContainer>
           <Link to="/vendor">

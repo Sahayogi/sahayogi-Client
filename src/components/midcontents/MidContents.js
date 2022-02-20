@@ -21,6 +21,7 @@ background-image: radial-gradient(
     flex-direction: column;
   }
 `;
+
 const MidContents = () => {
   return (
     <Container>
