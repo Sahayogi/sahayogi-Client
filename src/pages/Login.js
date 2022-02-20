@@ -155,15 +155,16 @@ const Login = () => {
     };
     try {
       const { data } = await axios.post(
-        'http://localhost:5000/api/auth/login',
+        'http://localhost:5005/api/login',
         { email, password },
         config
       );
       console.log(data);
       localStorage.setItem('access-token', data.token);
+      localStorage.setItem('userLoggedIn', data.email);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
       // setError(error.response.data.error);
       // setTimeout(() => {
       //   setError('');

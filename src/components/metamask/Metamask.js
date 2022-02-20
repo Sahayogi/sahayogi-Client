@@ -1,7 +1,9 @@
-import { KeyboardArrowDown } from "@material-ui/icons";
-import React, { useState } from "react";
-import styled from "styled-components";
-import DropDown from "./DropDown";
+import { KeyboardArrowDown } from '@material-ui/icons';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import DropDown from './DropDown';
+import { getToken, getUserEmail } from '../constants/Constant';
+import axios from 'axios';
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -20,26 +22,57 @@ const Connect = styled.button`
   background-color: rgb(61, 60, 60);
   color: white;
 `;
+const updateWalletAddress = async (accountAddress) => {
+  const token = getToken();
+  const email = getUserEmail();
+  console.log('UpdateWallet Called');
+  console.log(`Token`, token);
+  if (token) {
+    // Axios hit to update corresonding acc
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log('Checkpoint');
+    try {
+      const { data } = await axios.post(
+        'http://localhost:5005/api/wallet/connected',
+        { accountAddress, email },
+        config
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
+  }
+};
 
 async function getAccount() {
   const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
+    method: 'eth_requestAccounts',
   });
   const account = accounts[0];
   return account;
 }
 
 const Metamask = () => {
-  const [accountAddress, setAccountAddress] = useState("");
+  const [accountAddress, setAccountAddress] = useState('');
   const connectMetamask = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       getAccount().then((response) => {
         setAccountAddress(response);
+        console.log(`resp`, response);
+
+        // Axios req to update logged in user's walletaddress
+        if (response) {
+          updateWalletAddress(response);
+        }
       });
     }
   };
   const [click, setClick] = useState(false);
-  const [disconnect,setDisconnect] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const handleClick = () => {
     setClick(!click);
@@ -48,16 +81,18 @@ const Metamask = () => {
 
   return (
     <Container>
-      <Connect variant="contained" onClick={connectMetamask}>
-        {(!!accountAddress )
+      <Connect variant='contained' onClick={connectMetamask}>
+        {!!accountAddress
           ? `${accountAddress.slice(0, 6)}...${accountAddress.slice(
               accountAddress.length - 4,
               accountAddress.length
             )}`
-          : "Connect Wallet"}
+          : 'Connect Wallet'}
         {accountAddress && <KeyboardArrowDown onClick={handleClick} />}
       </Connect>
-      {accountAddress && click && dropdown  && <DropDown />}
+      {accountAddress && click && dropdown && (
+        <DropDown setAccountAddress={setAccountAddress} />
+      )}
       {}
     </Container>
   );

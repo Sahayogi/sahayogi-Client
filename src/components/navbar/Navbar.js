@@ -5,11 +5,13 @@ import { FaBars } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Metamask from '../metamask/Metamask';
-import DropDown from '../metamask/DropDown';
+
+import { getToken } from '../constants/Constant';
 // import { Link as LinkR} from 'react-router-dom'
 const Wrapper = styled.div`
   position: sticky;
   top: 0;
+  z-index: 10;
   height: 80px;
   display: flex;
   background-image: linear-gradient(
@@ -83,12 +85,10 @@ const MenuItem = styled.div`
   align-self: auto;
   gap: 1rem;
 `;
-const logoutHandle = () => {
-  localStorage.removeItem('access-token');
-};
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
+
   const handleClick = () => setClick(!click);
 
   return (
@@ -115,22 +115,15 @@ const Navbar = () => {
             <MenuLink>Projects</MenuLink>
           </Link>
 
-          <Link to='/login'>
-            <MenuLink>
-              {localStorage.getItem('access-token') ? (
-                <div
-                  type='button'
-                  onClick={() => {
-                    localStorage.removeItem('access-token');
-                  }}
-                >
-                  Logout
-                </div>
-              ) : (
-                'Login'
-              )}
-            </MenuLink>
-          </Link>
+          {!getToken() ? (
+            <Link to='/login'>
+              <MenuLink>login</MenuLink>
+            </Link>
+          ) : (
+            <Link to='/logout'>
+              <MenuLink>logout</MenuLink>
+            </Link>
+          )}
 
           <MenuItem>
             <Metamask />

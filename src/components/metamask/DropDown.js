@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { dropDownMenu } from "../constants/Constant";
-import LogoutIcon from "@mui/icons-material/Logout";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { dropDownMenu } from '../constants/Constant';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const MenuItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  border:none;
+  border: none;
   padding: 10px;
 `;
 const LogoutButton = styled.button`
@@ -47,7 +47,7 @@ const LogoutButton = styled.button`
   }
 `;
 
-const DropDown = ({}) => {
+const DropDown = ({ setAccountAddress }) => {
   const [click, setClick] = useState(false);
   const handleClick = () => {
     setClick(!click);
@@ -67,7 +67,7 @@ const DropDown = ({}) => {
               </Link>
             );
           })} */}
-          <LogoutButton>
+          <LogoutButton onClick={() => setAccountAddress('')}>
             <LogoutIcon />
             Logout
           </LogoutButton>
