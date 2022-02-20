@@ -1,13 +1,14 @@
-import logo from '../../assets/sahayogi.png';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FaBars } from 'react-icons/fa';
-import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Metamask from '../metamask/Metamask';
+import logo from "../../assets/sahayogi.png";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FaBars } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import Metamask from "../metamask/Metamask";
 
-import { getToken } from '../constants/Constant';
-// import { Link as LinkR} from 'react-router-dom'
+import { getToken } from "../constants/Constant";
+
+
 const Wrapper = styled.div`
   position: sticky;
   top: 0;
@@ -57,7 +58,7 @@ const MobileIcon = styled.div`
 `;
 const NavbarRight = styled.div`
   cursor: pointer;
-  flex: 1;
+  flex: 2;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -78,56 +79,70 @@ const MenuLink = styled.div`
     color: black;
   }
 `;
-
 const MenuItem = styled.div`
   display: flex;
   justify-content: center;
   align-self: auto;
   gap: 1rem;
 `;
-
+const ControlButton = styled.button`
+  display: flex;
+  padding: 10px;
+  /* background-color: rgb(61, 60, 60); */
+  background-color: black;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  &:hover {
+    background-color: rgb(61, 60, 60);
+  }
+`;
 const Navbar = () => {
   const [click, setClick] = useState(false);
-
   const handleClick = () => setClick(!click);
-
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login");
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('userLoggedIn');
+    navigate("/");
+  };
   return (
     <>
       <Wrapper>
         <NavbarLeft>
-          <img src={logo} alt='' />
+          <img src={logo} alt="" />
         </NavbarLeft>
 
         <MobileIcon onClick={handleClick}>
           {click ? <FaArrowLeft /> : <FaBars />}
         </MobileIcon>
         <NavbarRight>
-          <Link to='/'>
+          <Link to="/">
             <MenuLink>Home</MenuLink>
           </Link>
-          <Link to='/about'>
+          <Link to="/about">
             <MenuLink>About</MenuLink>
           </Link>
-          <Link to='/donate'>
+          <Link to="/donate">
             <MenuLink>Donate</MenuLink>
           </Link>
-          <Link to='/donationProject'>
+          <Link to="/donationProject">
             <MenuLink>Projects</MenuLink>
           </Link>
 
           {!getToken() ? (
-            <Link to='/login'>
-              <MenuLink>login</MenuLink>
-            </Link>
+            <ControlButton onClick={handleLogin}>Login</ControlButton>
           ) : (
-            <Link to='/logout'>
-              <MenuLink>logout</MenuLink>
-            </Link>
+            <ControlButton onClick={handleLogout}>Logout</ControlButton>
           )}
-
-          <MenuItem>
-            <Metamask />
-          </MenuItem>
+          {getToken() && (
+            <MenuItem>
+              <Metamask />
+            </MenuItem>
+          )}
         </NavbarRight>
       </Wrapper>
     </>

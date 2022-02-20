@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import logo from '../assets/sahayogi.png';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useAuth } from '../context/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -132,19 +130,6 @@ const Login = () => {
     }
   }, []);
 
-  const {
-    data,
-    loadUser,
-    // login: loginAction,
-    // loginSuccess,
-    // loginError,
-  } = useAuth();
-
-  // const handleLogin = (e) => {
-  //   if (email === "anisha@gmail.com" && password === "12345") {
-  //     loadUser({ email });
-  //   }
-  // };
   const handleLogin = async (e) => {
     console.log('j');
     e.preventDefault();
@@ -165,10 +150,6 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       console.log(error.response.data.error);
-      // setError(error.response.data.error);
-      // setTimeout(() => {
-      //   setError('');
-      // }, 5000);
     }
   };
   return (
@@ -197,7 +178,7 @@ const Login = () => {
             </PasswordField>
 
             <LoginButton onClick={handleLogin}>
-              {data.loggingIn ? 'logging In...' : 'login'}
+             Login
             </LoginButton>
           </LoginForm>
         </Wrapper>

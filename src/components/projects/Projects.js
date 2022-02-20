@@ -20,8 +20,8 @@ const Projects = ({donate}) => {
   return (
     <>
       <Container>
-        {projects.map((item) => (
-          <Project item={item} donate={donate}/>
+        {projects.map((item,id) => (
+          <Project item={item} key={id} donate={donate}/>
         ))}
       </Container>
     </>

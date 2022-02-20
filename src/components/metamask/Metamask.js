@@ -8,10 +8,12 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 10px;
 `;
 
 const Connect = styled.button`
   height: 40px;
+  width:150px;
   padding: 20px;
   align-items: center;
   justify-content: center;
