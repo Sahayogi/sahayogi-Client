@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Vendor from './Vendor';
 import axios from 'axios';
 import Bank from '../bank/Bank';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -43,7 +44,10 @@ const BankC = styled.div`
   height: 200px;
   width: 260px;
   margin: 0px 20px;
-  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 35px;
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
@@ -56,6 +60,15 @@ const BankC = styled.div`
   }
 `;
 
+const CopyButton = styled.button`
+  padding-bottom: 20px;
+  font-size: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: white;
+  margin-left: 10px;
+`;
 const VendorInfo = () => {
   const [posts, setPosts] = useState([]);
   const fetchPosts = async () => {
@@ -89,7 +102,28 @@ const VendorInfo = () => {
       <Vendor />
       <BankInfo>
         {posts.map((post) => {
-          return <BankC key={post._id}>{post.username}</BankC>;
+          return (
+            <BankC key={post._id}>
+              <h4>{post.username}</h4>
+              <h4>{post.phoneNumber}</h4>
+              <h4>{post.address}</h4>
+              <h4>
+                {post.walletAddress ? post.walletAddress : '-'}
+                {post.walletAddress ? (
+                  <CopyButton
+                    style={{ height: '10px' }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(post.walletAddress);
+                    }}
+                  >
+                    <ContentCopyIcon />
+                  </CopyButton>
+                ) : (
+                  ''
+                )}
+              </h4>
+            </BankC>
+          );
         })}
       </BankInfo>
     </Container>

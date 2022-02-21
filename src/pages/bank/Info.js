@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Bank from "./Bank";
-import axios from "axios";
-
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Bank from './Bank';
+import axios from 'axios';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 const Container = styled.div`
   min-height: 100vh;
   background-image: radial-gradient(
@@ -27,7 +27,7 @@ const BankInfo = styled.div`
   padding: 20px;
   color: white;
   display: grid;
-  grid-template-columns: auto auto auto  ;
+  grid-template-columns: auto auto auto;
   gap: 2.5rem;
   @media screen and (max-width: 768px) {
     display: flex;
@@ -42,7 +42,10 @@ const BankC = styled.div`
   height: 200px;
   width: 260px;
   margin: 0px 20px;
-  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 35px;
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
@@ -54,6 +57,15 @@ const BankC = styled.div`
     width: 300px;
   }
 `;
+const CopyButton = styled.button`
+  padding-bottom: 20px;
+  font-size: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: white;
+  margin-left: 10px;
+`;
 
 const Info = () => {
   const [posts, setPosts] = useState([]);
@@ -61,22 +73,22 @@ const Info = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/bank/info",
+        'http://localhost:5005/api/bank/info',
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log("posts:", posts);
+      console.log('posts:', posts);
       //   setLoading(false);
     } catch (err) {
-      console.log(err, "error occured");
+      console.log(err, 'error occured');
     }
   };
   useEffect(() => {
@@ -87,9 +99,29 @@ const Info = () => {
     <Container>
       <Bank />
       <BankInfo>
-        <BankC>nepal rastra</BankC>
         {posts.map((post) => {
-          return <BankC key={post._id}>{post.username}</BankC>;
+          return (
+            <BankC key={post._id}>
+              <h4>{post.username}</h4>
+              <h4>{post.phoneNumber}</h4>
+              <h4>{post.address}</h4>
+              <h4>
+                {post.walletAddress ? post.walletAddress : '-'}
+                {post.walletAddress ? (
+                  <CopyButton
+                    style={{ height: '10px' }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(post.walletAddress);
+                    }}
+                  >
+                    <ContentCopyIcon />
+                  </CopyButton>
+                ) : (
+                  ''
+                )}
+              </h4>
+            </BankC>
+          );
         })}
       </BankInfo>
     </Container>
