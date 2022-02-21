@@ -24,19 +24,6 @@ export const projects = [
     status: 'active',
   },
 ];
-
-export const dropDownMenu = [
-  {
-    title: 'Transactions',
-    icon: <CompareArrowsIcon />,
-    path: '/transaction',
-  },
-  // {
-  //   title: "Logout",
-  //   icon: <LogoutIcon />,
-  //   path: "",
-  // },
-];
 export const getToken = () => {
   return localStorage.getItem('access-token');
 };

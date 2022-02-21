@@ -69,20 +69,20 @@ const MidContent = ({}) => {
 
       <ImageContainer>
         <SubContainer>
-          <Link to="/vendor">
+          <Link to="/vendorinfo">
             <Image src={vendorImg} alt="" />
           </Link>
           <Title>vendor</Title>
         </SubContainer>
 
         <SubContainer>
-          <Link to="/bank">
+          <Link to="/bankinfo">
             <Image src={bankImg} alt="" />
           </Link>
           <Title>bank</Title>
         </SubContainer>
         <SubContainer>
-          <Link to="/beneficiary">
+          <Link to="/beneinfo">
             <Image src={beneficiaryImg} alt="" />
           </Link>
           <Title>beneficiary</Title>

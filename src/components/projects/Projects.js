@@ -5,6 +5,7 @@ import { projects } from "../constants/Constant";
 import Project from "./Project";
 
 const Container = styled.div`
+  min-height: 100vh;
   display: flex;
   padding: 60px 40px;
   justify-content: space-between;
