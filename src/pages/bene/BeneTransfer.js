@@ -1,10 +1,10 @@
 import React from "react";
+import Beneficiary from "./Beneficiary";
 import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background-image: radial-gradient(
     circle,
     #3c3d3f,
@@ -14,9 +14,26 @@ const Container = styled.div`
     #0d0d0c
   );
   display: flex;
+  flex: 1;
+  flex-direction: row;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+const Info = styled.div`
+  height: 500px;
+  width: 700px;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  gap: 4rem;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const PaymentContainer = styled.div`
   color: white;
@@ -84,17 +101,17 @@ const Title = styled.h1`
   color: white;
   padding-bottom: 20px;
 `;
-const Beneficiary = () => {
+
+const BeneTransfer = () => {
   const initialValues = {
     token: "",
     purpose: "",
-    code:""
+    code: "",
   };
   const validationSchema = Yup.object({
     token: Yup.number().required("required"),
     purpose: Yup.string().required("required"),
     code: Yup.string().max(6).required("required"),
-
   });
 
   const formik = useFormik({
@@ -106,47 +123,51 @@ const Beneficiary = () => {
   });
   return (
     <Container>
-      <Title>PAYMENT TO VENDOR</Title>
-      <PaymentContainer>
-        <Form onSubmit={formik.handleSubmit}>
-          <label htmlFor="token">Token</label>
-          <FormInput
-            type="number"
-            id="token"
-            token="token"
-            {...formik.getFieldProps("token")}
-          />
-          {formik.errors.token && formik.touched.token ? (
-            <Error>{formik.errors.token}</Error>
-          ) : null}
-          <label htmlFor="purpose">Purpose</label>
-          <FormInput
-            type="text"
-            id="purpose"
-            token="purpose"
-            {...formik.getFieldProps("purpose")}
-          />
-          {formik.errors.purpose && formik.touched.purpose ? (
-            <Error>{formik.errors.purpose}</Error>
-          ) : null}
-          <label htmlFor="token">Vendor-Code</label>
-          <FormInput
-            type="text"
-            id="code"
-            token="code"
-            {...formik.getFieldProps("code")}
-          />
-          {formik.errors.code && formik.touched.code ? (
-            <Error>{formik.errors.code}</Error>
-          ) : null}
-          <ButtonS>
-            <SubmitButton type="submit">Submit</SubmitButton>
-            <CancelButton type="submit">Cancel</CancelButton>
-          </ButtonS>
-        </Form>
-      </PaymentContainer>
+      <Beneficiary />
+      <Info>
+       
+        <PaymentContainer>
+        <Title>Payment to vendor</Title>
+          <Form onSubmit={formik.handleSubmit}>
+            <label htmlFor="token">Token</label>
+            <FormInput
+              type="number"
+              id="token"
+              token="token"
+              {...formik.getFieldProps("token")}
+            />
+            {formik.errors.token && formik.touched.token ? (
+              <Error>{formik.errors.token}</Error>
+            ) : null}
+            <label htmlFor="purpose">Purpose</label>
+            <FormInput
+              type="text"
+              id="purpose"
+              token="purpose"
+              {...formik.getFieldProps("purpose")}
+            />
+            {formik.errors.purpose && formik.touched.purpose ? (
+              <Error>{formik.errors.purpose}</Error>
+            ) : null}
+            <label htmlFor="token">Vendor-Code</label>
+            <FormInput
+              type="text"
+              id="code"
+              token="code"
+              {...formik.getFieldProps("code")}
+            />
+            {formik.errors.code && formik.touched.code ? (
+              <Error>{formik.errors.code}</Error>
+            ) : null}
+            <ButtonS>
+              <SubmitButton type="submit">Submit</SubmitButton>
+              <CancelButton type="submit">Cancel</CancelButton>
+            </ButtonS>
+          </Form>
+        </PaymentContainer>
+      </Info>
     </Container>
   );
 };
 
-export default Beneficiary;
+export default BeneTransfer;

@@ -82,7 +82,7 @@ const MidContent = ({}) => {
           <Title>bank</Title>
         </SubContainer>
         <SubContainer>
-          <Link to="/beneinfo">
+          <Link to="/benetransaction">
             <Image src={beneficiaryImg} alt="" />
           </Link>
           <Title>beneficiary</Title>
