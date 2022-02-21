@@ -1,13 +1,12 @@
-import logo from "../../assets/sahayogi.png";
-import React, { useState } from "react";
-import styled from "styled-components";
-import { FaBars } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import Metamask from "../metamask/Metamask";
+import logo from '../../assets/sahayogi.png';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { FaBars } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import Metamask from '../metamask/Metamask';
 
-import { getToken } from "../constants/Constant";
-
+import { getToken } from '../constants/Constant';
 
 const Wrapper = styled.div`
   position: sticky;
@@ -102,34 +101,36 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
   const handleLogout = () => {
     localStorage.removeItem('access-token');
     localStorage.removeItem('userLoggedIn');
-    navigate("/");
+    navigate('/');
   };
   return (
     <>
       <Wrapper>
         <NavbarLeft>
-          <img src={logo} alt="" />
+          <Link to='/'>
+            <img src={logo} alt='' />
+          </Link>
         </NavbarLeft>
 
         <MobileIcon onClick={handleClick}>
           {click ? <FaArrowLeft /> : <FaBars />}
         </MobileIcon>
         <NavbarRight>
-          <Link to="/">
+          <Link to='/'>
             <MenuLink>Home</MenuLink>
           </Link>
-          <Link to="/about">
+          <Link to='/about'>
             <MenuLink>About</MenuLink>
           </Link>
-          <Link to="/donate">
+          <Link to='/donate'>
             <MenuLink>Donate</MenuLink>
           </Link>
-          <Link to="/donationProject">
+          <Link to='/donationProject'>
             <MenuLink>Projects</MenuLink>
           </Link>
 

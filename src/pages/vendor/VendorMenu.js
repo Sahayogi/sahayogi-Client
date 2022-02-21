@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 300px;
@@ -12,11 +12,9 @@ const Container = styled.div`
   @media screen and (max-width: 768px) {
     display: flex;
     height: 100%;
-    width:100%;
+    width: 100%;
     flex-direction: column;
-  
   }
- 
 `;
 const MenuLink = styled.div`
   display: flex;
@@ -32,15 +30,15 @@ const MenuLink = styled.div`
 const VendorMenu = () => {
   return (
     <Container>
-      <Link to="/vendorinfo">
+      <Link to='/vendorinfo'>
         <MenuLink>Vendor</MenuLink>
-      </Link >
-      <Link to="/vendortransaction">
-        {" "}
+      </Link>
+      <Link to='/vendortransaction'>
+        {' '}
         <MenuLink>Transactions</MenuLink>
       </Link>
-      <Link to="/vendortransfer">
-        {" "}
+      <Link to='/vendortransfer'>
+        {' '}
         <MenuLink>Transfer</MenuLink>
       </Link>
     </Container>

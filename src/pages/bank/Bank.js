@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import BankMenu from "./BankMenu";
-import { BiListUl } from "react-icons/bi";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import BankMenu from './BankMenu';
+import { BiListUl } from 'react-icons/bi';
 
 const Container = styled.div`
   top: 80px;
@@ -15,6 +15,7 @@ const ExtendMenu = styled.button`
   border: none;
   padding: 10px;
   font-size: 40px;
+  cursor: pointer;
 `;
 const Bank = () => {
   const [click, setClick] = useState(false);

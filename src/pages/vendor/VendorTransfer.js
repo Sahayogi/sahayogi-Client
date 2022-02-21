@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import VendorMenu from "./VendorMenu";
+import React from 'react';
+import styled from 'styled-components';
+import VendorMenu from './VendorMenu';
+import Vendor from './Vendor';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -23,7 +24,7 @@ const Container = styled.div`
 const BankInfo = styled.div`
   height: 500px;
   width: 700px;
-  padding:20px;
+  padding: 20px;
   color: white;
   display: flex;
   flex-direction: row;
@@ -31,16 +32,14 @@ const BankInfo = styled.div`
   gap: 4rem;
   @media screen and (max-width: 768px) {
     display: flex;
-    flex-direction:column;
-   
+    flex-direction: column;
   }
- 
 `;
 
 const VendorTransfer = () => {
   return (
     <Container>
-      <VendorMenu />
+      <Vendor />
       <BankInfo>
         {/* <BankC>nabil bank</BankC>
         <BankC>nepal rastra bank</BankC> */}
