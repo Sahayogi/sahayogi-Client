@@ -4,7 +4,7 @@ import Bank from './Bank';
 import axios from 'axios';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   background-image: radial-gradient(
     circle,
     #3c3d3f,

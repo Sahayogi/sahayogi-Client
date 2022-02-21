@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   background-image: radial-gradient(
     circle,
     #3c3d3f,

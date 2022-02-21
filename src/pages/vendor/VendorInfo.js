@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Vendor from './Vendor';
-import axios from 'axios';
-import Bank from '../bank/Bank';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Vendor from "./Vendor";
+import axios from "axios";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   background-image: radial-gradient(
     circle,
     #3c3d3f,
@@ -75,22 +74,22 @@ const VendorInfo = () => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       };
       const { data } = await axios.get(
-        'http://localhost:5005/api/vendor/info',
+        "http://localhost:5005/api/vendor/info",
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log('posts:', posts);
+      console.log("posts:", posts);
       //   setLoading(false);
     } catch (err) {
-      console.log(err, 'error occured');
+      console.log(err, "error occured");
     }
   };
   useEffect(() => {
@@ -108,10 +107,10 @@ const VendorInfo = () => {
               <h4>{post.phoneNumber}</h4>
               <h4>{post.address}</h4>
               <h4>
-                {post.walletAddress ? post.walletAddress : '-'}
+                {post.walletAddress ? post.walletAddress : "-"}
                 {post.walletAddress ? (
                   <CopyButton
-                    style={{ height: '10px' }}
+                    style={{ height: "10px" }}
                     onClick={() => {
                       navigator.clipboard.writeText(post.walletAddress);
                     }}
@@ -119,7 +118,7 @@ const VendorInfo = () => {
                     <ContentCopyIcon />
                   </CopyButton>
                 ) : (
-                  ''
+                  ""
                 )}
               </h4>
             </BankC>

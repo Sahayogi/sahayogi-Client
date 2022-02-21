@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import { BiListUl } from 'react-icons/bi';
-import VendorMenu from './VendorMenu';
+import { BiListUl } from "react-icons/bi";
+import VendorMenu from "./VendorMenu";
 
 const Container = styled.div`
   top: 80px;
-  @media screen and (max-width: 768px) {
-    position: sticky;
-  }
+  position: sticky;
 `;
 const ExtendMenu = styled.button`
   color: white;

@@ -6,7 +6,7 @@ import Projects from "../components/projects/Projects";
 import home from "../assets/home.jpg";
 
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   height: 65vh;
   flex-direction: column;

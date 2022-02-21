@@ -2,9 +2,8 @@ import React from "react";
 import Projects from "../components/projects/Projects";
 import styled from "styled-components";
 
-
 const Container = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   padding: 20px;
   background-image: radial-gradient(
     circle,
@@ -35,7 +34,6 @@ const Esewa = styled.label`
   font-weight: bold;
 `;
 const Donate = () => {
- 
   return (
     <Container>
       <Instruction>
@@ -47,7 +45,7 @@ const Donate = () => {
         to donate.
         <h1>THANK YOU !!!</h1>
       </Instruction>
-      <Projects donate={true}/>
+      <Projects donate={true} />
     </Container>
   );
 };
