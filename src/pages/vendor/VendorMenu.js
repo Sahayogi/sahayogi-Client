@@ -37,10 +37,6 @@ const VendorMenu = () => {
         {' '}
         <MenuLink>Transactions</MenuLink>
       </Link>
-      <Link to='/vendortransfer'>
-        {' '}
-        <MenuLink>Transfer</MenuLink>
-      </Link>
     </Container>
   );
 };

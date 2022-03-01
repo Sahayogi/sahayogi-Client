@@ -1,3 +1,4 @@
+import { SettingsPhoneTwoTone } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 
@@ -42,14 +43,23 @@ const Dbutton = styled.button`
   }
 `;
 const Status = styled.div`
-  background-color: salmon;
+  background-color: green;
   padding: 5px;
   color: white;
   border: none;
   margin-bottom: 30px;
 `;
+const Label = styled.label`
+  color: white;
+  font-weight: bolder;
+`;
 
-const Project = ({ item, donate }) => {
+const Project = ({ item, donate, show, setProjectId }) => {
+  const handleDonate = (_id) => {
+    show((prev) => !prev);
+    setProjectId(_id);
+  };
+
   return (
     <Container>
       <Image src={item.img} />
@@ -57,8 +67,11 @@ const Project = ({ item, donate }) => {
       <Info>
         <Status>{item.status}</Status>
         <Title>{item.title}</Title>
-        <Title>Donations:{item.donations}</Title>
-        {donate && <Dbutton>DONATE</Dbutton>}
+        <Label>Donations (SYT)</Label>
+        <Title>{item.donations}</Title>
+        {donate && (
+          <Dbutton onClick={() => handleDonate(item.id)}>DONATE</Dbutton>
+        )}
       </Info>
     </Container>
   );

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Bank from './Bank';
-import axios from 'axios';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Bank from "./Bank";
+import axios from "axios";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-image: radial-gradient(
@@ -66,29 +66,59 @@ const CopyButton = styled.button`
   color: white;
   margin-left: 10px;
 `;
+const MainLoader = styled.div`
+  
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid white; */
+`;
+
+const Loader = styled.div`
+  flex: 1;
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  height: calc(100vh);
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid black;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  animation: spin 0.5s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 const Info = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const fetchPosts = async () => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          "Content-Type": "application/json",
         },
       };
       const { data } = await axios.get(
-        'http://localhost:5005/api/bank/info',
+        "http://localhost:5005/api/bank/info",
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log('posts:', posts);
-      //   setLoading(false);
+      console.log("posts:", posts);
+      setLoading(false);
     } catch (err) {
-      console.log(err, 'error occured');
+      console.log(err, "error occured");
     }
   };
   useEffect(() => {
@@ -98,32 +128,44 @@ const Info = () => {
   return (
     <Container>
       <Bank />
+      {loading && (
+          <div>
+            <MainLoader>
+              <Loader></Loader>
+            </MainLoader>
+          </div>
+        )}
+        {!loading &&
       <BankInfo>
-        {posts.map((post) => {
-          return (
-            <BankC key={post._id}>
-              <h4>{post.username}</h4>
-              <h4>{post.phoneNumber}</h4>
-              <h4>{post.address}</h4>
-              <h4>
-                {post.walletAddress ? post.walletAddress : '-'}
-                {post.walletAddress ? (
-                  <CopyButton
-                    style={{ height: '10px' }}
-                    onClick={() => {
-                      navigator.clipboard.writeText(post.walletAddress);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </CopyButton>
-                ) : (
-                  ''
-                )}
-              </h4>
-            </BankC>
-          );
-        })}
+       
+        {
+          posts.map((post) => {
+            return (
+              <BankC key={post._id}>
+                <h4>{post.username}</h4>
+                <h4>{post.phoneNumber}</h4>
+                <h4>{post.address}</h4>
+                <h4>
+                  {post.walletAddress ? post.walletAddress : "-"}
+                  {post.walletAddress ? (
+                    <CopyButton
+                      style={{ height: "10px" }}
+                      onClick={() => {
+                        navigator.clipboard.writeText(post.walletAddress);
+                      }}
+                    >
+                      <ContentCopyIcon />
+                    </CopyButton>
+                  ) : (
+                    ""
+                  )}
+                </h4>
+              </BankC>
+            );
+          })}
+        
       </BankInfo>
+}
     </Container>
   );
 };

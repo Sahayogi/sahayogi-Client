@@ -1,10 +1,10 @@
-import React from "react";
-import Beneficiary from "./Beneficiary";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { getOwnBalance, transferFrom, approve } from "../Web3Client";
 const Container = styled.div`
-  min-height: calc(100vh - 80px);
+  height: 100vh;
   background-image: radial-gradient(
     circle,
     #3c3d3f,
@@ -14,8 +14,9 @@ const Container = styled.div`
     #0d0d0c
   );
   display: flex;
-  flex: 1;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -37,6 +38,10 @@ const Info = styled.div`
 `;
 const PaymentContainer = styled.div`
   color: white;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 const ButtonS = styled.div`
   margin-top: 30px;
@@ -53,15 +58,6 @@ const SubmitButton = styled.button`
   font-size: 20px;
   background-color: green;
   border-radius: 10px;
-  padding: 15px;
-  cursor: pointer;
-`;
-const CancelButton = styled.button`
-  border: none;
-  color: black;
-  width: 100%;
-  font-size: 20px;
-  background-color: transparent;
   padding: 15px;
   cursor: pointer;
 `;
@@ -83,9 +79,9 @@ const Form = styled.form`
   padding: 40px;
   max-width: 700px;
   width: 100%;
-  height:60vh;
+  height: 60vh;
   background-color: white;
- 
+
   label {
     color: black;
     font-size: 20px;
@@ -97,21 +93,74 @@ const Error = styled.h1`
   padding: 6px;
   font-size: 15px;
 `;
-const Title = styled.h1`
+
+const Label = styled.label`
+  display: block;
+  text-align: center;
   color: white;
-  padding-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
-const BeneTransfer = () => {
+const ButtonBal = styled.button`
+  background: #2952e3;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  padding: 20px;
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 10px;
+  appearance: none;
+  border-radius: 4px;
+  width: auto;
+  cursor: pointer;
+  font-weight: bolder;
+  &:hover {
+    background-color: #2546bd;
+  }
+`;
+const Side = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Balance = styled.div`
+  flex: 1;
+  margin: auto;
+`;
+
+const Transact = () => {
+  const [transfer, setTransfer] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [approved, setApproved] = useState(false);
+  const fetchBalance = () => {
+    getOwnBalance()
+      .then((balance) => {
+        setBalance(balance);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleApprove = () => {
+    approve()
+      .then((tx) => {
+        setApproved(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const initialValues = {
     token: "",
     purpose: "",
-    code: "",
+    address: "",
   };
   const validationSchema = Yup.object({
-    token: Yup.number().required("required"),
+    token: Yup.string().required("required"),
     purpose: Yup.string().required("required"),
-    code: Yup.string().max(6).required("required"),
+    address: Yup.string().max(42).required("required"),
   });
 
   const formik = useFormik({
@@ -119,19 +168,39 @@ const BeneTransfer = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      const handleTransfer = (e) => {
+        transferFrom(values.address, values.token)
+          .then((tx) => {
+            console.log(tx);
+            setTransfer(true);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+      handleTransfer();
     },
   });
   return (
     <Container>
-      <Beneficiary />
       <Info>
-       
+        <Side>
+          <Balance>
+            <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
+          </Balance>
+          <Balance>
+            <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
+            <Label>your current balance is:</Label>
+            <Label>{balance / 100}</Label>
+          </Balance>
+        </Side>
+
         <PaymentContainer>
-        <Title>Payment to vendor</Title>
           <Form onSubmit={formik.handleSubmit}>
             <label htmlFor="token">Token</label>
             <FormInput
-              type="number"
+              type="string"
               id="token"
               token="token"
               {...formik.getFieldProps("token")}
@@ -149,19 +218,18 @@ const BeneTransfer = () => {
             {formik.errors.purpose && formik.touched.purpose ? (
               <Error>{formik.errors.purpose}</Error>
             ) : null}
-            <label htmlFor="token">Vendor-Code</label>
+            <label htmlFor="token">Wallet-Address</label>
             <FormInput
-              type="text"
-              id="code"
-              token="code"
-              {...formik.getFieldProps("code")}
+              type="string"
+              id="address"
+              token="address"
+              {...formik.getFieldProps("address")}
             />
-            {formik.errors.code && formik.touched.code ? (
-              <Error>{formik.errors.code}</Error>
+            {formik.errors.address && formik.touched.address ? (
+              <Error>{formik.errors.address}</Error>
             ) : null}
             <ButtonS>
               <SubmitButton type="submit">Submit</SubmitButton>
-              <CancelButton type="submit">Cancel</CancelButton>
             </ButtonS>
           </Form>
         </PaymentContainer>
@@ -170,4 +238,4 @@ const BeneTransfer = () => {
   );
 };
 
-export default BeneTransfer;
+export default Transact;

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../assets/sahayogi.png"
+import logo from "../assets/sahayogi.png";
+import { getRaiseFunds } from "../Web3Client";
 
 const Container = styled.div`
   height: 100vh;
@@ -30,14 +31,38 @@ const Photo = styled.img`
   object-fit: cover;
   display: flex;
   justify-content: center;
- 
+`;
+const FundRaised = styled.div`
+  color: white;
 `;
 
 const About = () => {
+  const [raised, setRaised] = useState(false);
+  const [id,setId]= useState('');
+  const handleFund = () => {
+    getRaiseFunds(id)
+      .then((tx) => {
+        console.log(tx);
+        setRaised(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Container>
       <Photo src={logo} alt="" />
       <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
+      <FundRaised>
+        <input
+          type="id"
+          placeholder="projectId"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+
+        <button onClick={handleFund}>Raise Fund</button>
+      </FundRaised>
     </Container>
   );
 };

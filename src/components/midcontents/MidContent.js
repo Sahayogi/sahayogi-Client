@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import vendorImg from "../../assets/vendor.png";
-import donorImg from "../../assets/donor.jpg";
 import beneficiaryImg from "../../assets/bene.jpg";
 import bankImg from "../../assets/bank.jpg";
 

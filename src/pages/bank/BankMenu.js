@@ -38,10 +38,7 @@ const BankMenu = () => {
         {" "}
         <MenuLink>Transactions</MenuLink>
       </Link>
-      <Link to="/banktransfer">
-        {" "}
-        <MenuLink>Transfer</MenuLink>
-      </Link>
+      
     </Container>
   );
 };

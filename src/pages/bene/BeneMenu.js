@@ -35,9 +35,10 @@ const BeneMenu = () => {
         {" "}
         <MenuLink>Transactions</MenuLink>
       </Link>
-      <Link to="/benetransfer">
+     
+      <Link to="/claimdonation">
         {" "}
-        <MenuLink>Transfer</MenuLink>
+        <MenuLink>Claim Donation</MenuLink>
       </Link>
     </Container>
   );

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import DropDown from './DropDown';
 import { getToken, getUserEmail } from '../constants/Constant';
+import { getBlockchain } from '../../Web3Client';
 import axios from 'axios';
 const Container = styled.div`
   display: flex;
@@ -51,39 +52,39 @@ const updateWalletAddress = async (accountAddress) => {
   }
 };
 
-async function getAccount() {
-  const accounts = await window.ethereum.request({
-    method: 'eth_requestAccounts',
-  });
-  const account = accounts[0];
-  return account;
-}
+// async function getAccount() {
+//   const accounts = await window.ethereum.request({
+//     method: 'eth_requestAccounts',
+//   });
+//   const account = accounts[0];
+//   return account;
+// }
 
 const Metamask = () => {
-  const [accountAddress, setAccountAddress] = useState('');
-  const connectMetamask = () => {
-    if (typeof window !== 'undefined') {
-      getAccount().then((response) => {
-        setAccountAddress(response);
-        console.log(`resp`, response);
+  const [accountAddress, setAccountAddress] = useState(null);
+  // const connectMetamask = () => {
+  //   if (typeof window !== 'undefined') {
+  //     getAccount().then((response) => {
+  //       setAccountAddress(response);
+  //       console.log(`resp`, response);
 
-        // Axios req to update logged in user's walletaddress
-        if (response) {
-          updateWalletAddress(response);
-        }
-      });
-    }
-  };
+  //       // Axios req to update logged in user's walletaddress
+  //       if (response) {
+  //         updateWalletAddress(response);
+  //       }
+  //     });
+  //   }
+  // };
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const handleClick = () => {
     setClick(!click);
     setDropdown(true);
   };
-
+  
   return (
     <Container>
-      <Connect variant='contained' onClick={connectMetamask}>
+      <Connect variant='contained' onClick={()=>getBlockchain(setAccountAddress)}>
         {!!accountAddress
           ? `${accountAddress.slice(0, 6)}...${accountAddress.slice(
               accountAddress.length - 4,

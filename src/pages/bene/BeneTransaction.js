@@ -41,7 +41,7 @@ const BeneTransaction = () => {
     <Container>
       <Beneficiary />
       <Info>
-       hgnjkmklm
+    
       </Info>
     </Container>
   );
