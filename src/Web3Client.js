@@ -1,10 +1,11 @@
 import Web3 from "web3";
-import SahayogiTokenBuild from "./abi/SahayogiToken.json"
+import SahayogiTokenBuild from "./abi/SahayogiToken.json";
 import FundRaisingBuild from "./abi/FundRaising.json";
-
+import SahayogiAgencyBuild from "./abi/SahayogiAgency.json";
 
 let frContract;
 let sytContract;
+let saContract;
 let selectedAccount;
 let isInitialized = false;
 
@@ -36,12 +37,16 @@ export const getBlockchain = async (setAccountAddress) => {
     sytContract = new web3.eth.Contract(
       SahayogiTokenBuild.abi,
       // SahayogiTokenBuild.networks[networkId].address
-      "0xE29F9433e564c865CAC3Ff9ceAE120A63Dcc3bA0"
+      "0xd4971aa8F6D5C7381F8c93987D54d5FB76cB4Fe9"
     );
     frContract = new web3.eth.Contract(
       FundRaisingBuild.abi,
       // FundRaisingBuild.networks[networkId].address
-      "0xE9540d02B5f711913Ab11E2614E5A87e7E56189A"
+      "0xb780522e0941142AA1AA97c6b58440fC618d1C56"
+    );
+    saContract = new web3.eth.Contract(
+      SahayogiAgencyBuild.abi,
+      "0x994e98e32198B42903404B9FEe2aaA205ceaB13E"
     );
     isInitialized = true;
   }
@@ -50,52 +55,56 @@ export const getOwnBalance = () => {
   return sytContract.methods.balanceOf(selectedAccount).call();
 };
 
-export const mintToken = async (mintAddress, mintAmount) => {
+export const approve = async () => {
   if (!isInitialized) {
     await getBlockchain();
   }
-  return sytContract.methods.mint(mintAddress, mintAmount).send({
+  return sytContract.methods.approve(selectedAccount, 10000000).send({
     from: selectedAccount,
   });
 };
-
-export const approve = async ()=>{
-    if (!isInitialized) {
-        await getBlockchain();
-      }
-      return sytContract.methods
-      .approve(selectedAccount,10000000)
-      .send({
-        from: selectedAccount,
-      });
-}
-export const transferFrom = async (to,amount)=>{
-  if (!isInitialized) {
-      await getBlockchain();
-    }
-    return sytContract.methods
-    .transfer(to, amount)
-    .send({
-      from: selectedAccount,
-    });
-}
-export const doDonate = async (id,amount) => {
+export const transfer = async (to, amount) => {
   if (!isInitialized) {
     await getBlockchain();
   }
-  return frContract.methods
-    .donate(id,amount)
-    .send({
-      from: selectedAccount,
-    });
+  return sytContract.methods.transfer(to, amount).send({
+    from: selectedAccount,
+  });
+};
+export const doDonate = async (id, amount) => {
+  if (!isInitialized) {
+    await getBlockchain();
+  }
+  return frContract.methods.donate(id, amount).send({
+    from: selectedAccount,
+  });
 };
 export const getRaiseFunds = async (id) => {
   if (!isInitialized) {
     await getBlockchain();
   }
-  return frContract.methods
-    .raiseFunds(id)
-    .send({
-      from: selectedAccount,
-    });
+  return frContract.methods.raiseFunds(id).send({
+    from: selectedAccount,
+  });
 };
+
+// export const claimByBene = async () => {
+//   if (!isInitialized) {
+//     await getBlockchain();
+//   }
+//   return saContract.methods
+//     .claim(projectId, index, account, 0, proofs)
+//     .estimateGas({
+//       from: account,
+//     })
+//     .then((gasAmounnt) => {
+//       console.log(gasAmounnt);
+//       contract.methods.claim(projectId, index, account, 0, proofs).send({
+//         from: account,
+//         gasLimit: gasAmounnt,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };

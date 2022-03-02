@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getOwnBalance, transferFrom, approve } from "../Web3Client";
+import { getOwnBalance, transfer, approve } from "../Web3Client";
 const Container = styled.div`
   height: 100vh;
   background-image: radial-gradient(
@@ -42,6 +42,7 @@ const PaymentContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  height: auto;
 `;
 const ButtonS = styled.div`
   margin-top: 30px;
@@ -79,7 +80,7 @@ const Form = styled.form`
   padding: 40px;
   max-width: 700px;
   width: 100%;
-  height: 60vh;
+  height: auto;
   background-color: white;
 
   label {
@@ -128,6 +129,7 @@ const Side = styled.div`
 const Balance = styled.div`
   flex: 1;
   margin: auto;
+  margin-top: 20px;
 `;
 
 const Transact = () => {
@@ -169,7 +171,7 @@ const Transact = () => {
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
       const handleTransfer = (e) => {
-        transferFrom(values.address, values.token)
+        transfer(values.address, values.token)
           .then((tx) => {
             console.log(tx);
             setTransfer(true);
@@ -185,17 +187,6 @@ const Transact = () => {
   return (
     <Container>
       <Info>
-        <Side>
-          <Balance>
-            <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
-          </Balance>
-          <Balance>
-            <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
-            <Label>your current balance is:</Label>
-            <Label>{balance / 100}</Label>
-          </Balance>
-        </Side>
-
         <PaymentContainer>
           <Form onSubmit={formik.handleSubmit}>
             <label htmlFor="token">Token</label>
@@ -233,6 +224,16 @@ const Transact = () => {
             </ButtonS>
           </Form>
         </PaymentContainer>
+        <Side>
+          <Balance>
+            <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
+          </Balance>
+          <Balance>
+            <Label>your current balance is:</Label>
+            <Label>{balance / 10 ** 18}</Label>
+            <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
+          </Balance>
+        </Side>
       </Info>
     </Container>
   );

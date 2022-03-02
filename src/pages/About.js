@@ -35,10 +35,43 @@ const Photo = styled.img`
 const FundRaised = styled.div`
   color: white;
 `;
-
+const Button = styled.button`
+  
+  width: auto;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 1;
+  margin: auto;
+  margin-left:10px;
+  border: none;
+  align-self: center;
+  border-radius: 5px;
+  background:#e7e7e7; 
+  color: black;
+  font-size: 16px;
+  font-weight: bolder;
+  margin-top: 20px; 
+  &:hover {
+    background-color: #2546bd;
+  }
+`;
+const RaiseInput = styled.input`
+  font-size: 18px;
+  padding: 10px;
+  flex: 1;
+  background:white;
+  color:black;
+  border: none;
+  border-radius: 0px;
+  ::placeholder {
+    color: black;
+  }
+`;
 const About = () => {
   const [raised, setRaised] = useState(false);
-  const [id,setId]= useState('');
+  const [id, setId] = useState('');
   const handleFund = () => {
     getRaiseFunds(id)
       .then((tx) => {
@@ -54,17 +87,20 @@ const About = () => {
       <Photo src={logo} alt="" />
       <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
       <FundRaised>
-        <input
+        <RaiseInput
           type="id"
           placeholder="projectId"
           value={id}
           onChange={(e) => setId(e.target.value)}
         />
 
-        <button onClick={handleFund}>Raise Fund</button>
+        <Button onClick={handleFund}>Raise Fund</Button>
       </FundRaised>
     </Container>
   );
 };
 
 export default About;
+
+
+
