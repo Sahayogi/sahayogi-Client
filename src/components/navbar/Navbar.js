@@ -142,11 +142,11 @@ const Navbar = () => {
           ) : (
             <ControlButton onClick={handleLogout}>Logout</ControlButton>
           )}
-          {getToken() && (
+           
             <MenuItem>
               <Metamask />
             </MenuItem>
-          )}
+          
         </NavbarRight>
       </Wrapper>
     </>

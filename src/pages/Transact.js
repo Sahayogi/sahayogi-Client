@@ -230,7 +230,7 @@ const Transact = () => {
           </Balance>
           <Balance>
             <Label>your current balance is:</Label>
-            <Label>{balance / 10 ** 18}</Label>
+            <Label>{balance }</Label>
             <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
           </Balance>
         </Side>
