@@ -94,7 +94,7 @@ export const approve = async () => {
     from: selectedAccount,
   });
 };
-export const transfer = async (to, amount) => {
+export const transact = async (to, amount) => {
   if (!isInitialized) {
     await getBlockchain();
   }

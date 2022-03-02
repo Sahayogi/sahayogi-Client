@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getOwnBalance, transfer, approve } from "../Web3Client";
+import { getOwnBalance, approve, transact } from "../Web3Client";
 const Container = styled.div`
   height: 100vh;
   background-image: radial-gradient(
@@ -171,7 +171,7 @@ const Transact = () => {
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
       const handleTransfer = (e) => {
-        transfer(values.address, values.token)
+        transact(values.address, values.token)
           .then((tx) => {
             console.log(tx);
             setTransfer(true);
@@ -230,7 +230,7 @@ const Transact = () => {
           </Balance>
           <Balance>
             <Label>your current balance is:</Label>
-            <Label>{balance }</Label>
+            <Label>{balance}</Label>
             <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
           </Balance>
         </Side>
