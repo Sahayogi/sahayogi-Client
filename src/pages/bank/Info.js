@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Bank from "./Bank";
-import axios from "axios";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Bank from './Bank';
+import axios from 'axios';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 const Container = styled.div`
   min-height: calc(100vh - 80px);
   background-image: radial-gradient(
@@ -67,7 +67,6 @@ const CopyButton = styled.button`
   margin-left: 10px;
 `;
 const MainLoader = styled.div`
-  
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -104,21 +103,21 @@ const Info = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/bank/info",
+        'http://localhost:5005/api/bank/info',
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log("posts:", posts);
+      console.log('posts:', posts);
       setLoading(false);
     } catch (err) {
-      console.log(err, "error occured");
+      console.log(err, 'error occured');
     }
   };
   useEffect(() => {
@@ -129,27 +128,32 @@ const Info = () => {
     <Container>
       <Bank />
       {loading && (
-          <div>
-            <MainLoader>
-              <Loader></Loader>
-            </MainLoader>
-          </div>
-        )}
-        {!loading &&
-      <BankInfo>
-       
-        {
-          posts.map((post) => {
+        <div>
+          <MainLoader>
+            <Loader></Loader>
+          </MainLoader>
+        </div>
+      )}
+      {!loading && (
+        <BankInfo>
+          {posts.map((post) => {
             return (
               <BankC key={post._id}>
                 <h4>{post.username}</h4>
                 <h4>{post.phoneNumber}</h4>
                 <h4>{post.address}</h4>
                 <h4>
-                  {post.walletAddress ? post.walletAddress : "-"}
+                  {post.walletAddress
+                    ? `${post.walletAddress.slice(
+                        0,
+                        5
+                      )}...${post.walletAddress.slice(
+                        post.walletAddress.length - 5
+                      )}`
+                    : '-'}
                   {post.walletAddress ? (
                     <CopyButton
-                      style={{ height: "10px" }}
+                      style={{ height: '10px' }}
                       onClick={() => {
                         navigator.clipboard.writeText(post.walletAddress);
                       }}
@@ -157,15 +161,14 @@ const Info = () => {
                       <ContentCopyIcon />
                     </CopyButton>
                   ) : (
-                    ""
+                    ''
                   )}
                 </h4>
               </BankC>
             );
           })}
-        
-      </BankInfo>
-}
+        </BankInfo>
+      )}
     </Container>
   );
 };
