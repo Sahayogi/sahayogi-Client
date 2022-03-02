@@ -74,7 +74,7 @@ export const transferFrom = async (to,amount)=>{
       await getBlockchain();
     }
     return sytContract.methods
-    .transferFrom(selectedAccount,to, amount)
+    .transfer(to, amount)
     .send({
       from: selectedAccount,
     });
