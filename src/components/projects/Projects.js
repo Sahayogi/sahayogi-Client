@@ -48,7 +48,7 @@ const Input = styled.input`
   font-size: 18px;
   padding: 10px;
   display: flex;
-  color:white;
+  color: white;
   flex: 1;
   margin: auto;
   margin-top: 30px;
@@ -60,7 +60,6 @@ const Input = styled.input`
   ::placeholder {
     color: white;
     font-size: small;
-   
   }
 `;
 const H1 = styled.h1`
@@ -147,11 +146,13 @@ const Projects = ({ donate }) => {
       .then((tx) => {
         console.log(tx);
         setDonated(true);
+    alert(`${amount} & ${projectId}`);
+
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(projectId);
+    console.log("projectId:", projectId);
     console.log(amount);
   };
   const handleCross = () => {

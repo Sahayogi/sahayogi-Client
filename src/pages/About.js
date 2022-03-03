@@ -1,10 +1,10 @@
+import { style } from "@mui/system";
 import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/sahayogi.png";
-import { getRaiseFunds } from "../Web3Client";
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: calc(100vh - 80px);
   background-image: radial-gradient(
     circle,
     #3c3d3f,
@@ -17,14 +17,20 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 40px;
 
   @media only screen and (min-width: 280px) and (max-width: 1080px) {
     flex-direction: column;
   }
 `;
-const Description = styled.div`
+const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+const Description = styled.label`
   color: white;
-  padding: 20px;
 `;
 const Photo = styled.img`
   height: 80px;
@@ -32,75 +38,87 @@ const Photo = styled.img`
   display: flex;
   justify-content: center;
 `;
-const FundRaised = styled.div`
+const Supply = styled.div`
+  color: white;
+  display: flex;
+`;
+const SupplyC = styled.div`
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(102, 101, 101);
+`;
+const Users = styled.div`
+  color: white;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+const Item = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin: 0px 10px;
+  padding: 60px;
+  border-radius: 1rem;
+  cursor: pointer;
+  background-color: rgb(102, 101, 101);
+  box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
+  -webkit-box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
+  -moz-box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
+`;
+const ItemName = styled.label`
+  font-size: 20px;
+`;
+const Count = styled.label`
+  padding-top: 10px;
+  text-align: center;
+  font-size: 20px;
   color: white;
 `;
-const Button = styled.button`
-  
-  width: auto;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex: 1;
-  margin: auto;
-  margin-left:10px;
-  border: none;
-  align-self: center;
-  border-radius: 5px;
-  background:#e7e7e7; 
-  color: black;
-  font-size: 16px;
-  font-weight: bolder;
-  margin-top: 20px; 
-  &:hover {
-    background-color: #2546bd;
-  }
-`;
-const RaiseInput = styled.input`
-  font-size: 18px;
-  padding: 10px;
-  flex: 1;
-  background:white;
-  color:black;
-  border: none;
-  border-radius: 0px;
-  ::placeholder {
-    color: black;
-  }
-`;
+
 const About = () => {
-  const [raised, setRaised] = useState(false);
-  const [id, setId] = useState('');
-  const handleFund = () => {
-    getRaiseFunds(id)
-      .then((tx) => {
-        console.log(tx);
-        setRaised(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <Container>
-      <Photo src={logo} alt="" />
-      <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
-      <FundRaised>
-        <RaiseInput
-          type="id"
-          placeholder="projectId"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-        />
+      <Header>
+        <Photo src={logo} alt="" />
+        <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
+      </Header>
+      <Supply>
+        <SupplyC>
+          <ItemName>total supply</ItemName>
+          <Count>5</Count>
+        </SupplyC>
+      </Supply>
+      <Users>
+        <Item>
+          <ItemName>VENDOR</ItemName>
+          <Count>1</Count>
+        </Item>
+        <Item>
+          <ItemName>Projects</ItemName>
+          <Count>1</Count>
+        </Item>
+        <Item>
+          <ItemName>Bank</ItemName>
+          <Count>1</Count>
+        </Item>
+        <Item>
+          <ItemName>Beneficiary</ItemName>
+          <Count>1</Count>
+        </Item>
+      </Users>
 
-        <Button onClick={handleFund}>Raise Fund</Button>
-      </FundRaised>
+     
     </Container>
   );
 };
 
 export default About;
-
-
-
