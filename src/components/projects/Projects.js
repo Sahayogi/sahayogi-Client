@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { projects } from "../constants/Constant";
-import { doDonate } from "../../Web3Client";
-import { countOfFunding } from "../../utils/getBlockchainData";
-import Project from "./Project";
-import axios from "axios";
-
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { projects } from '../constants/Constant';
+import { doDonate } from '../../Web3Client';
+import { countOfFunding } from '../../utils/getBlockchainData';
+import Project from './Project';
+import axios from 'axios';
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -69,7 +68,7 @@ const H1 = styled.h1`
   color: #ddd;
   padding: 20px;
   font-weight: 700;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   line-height: 1.8;
   word-spacing: 10px;
   text-align: center;
@@ -116,56 +115,56 @@ const Projects = ({ donate }) => {
   const [amount, setAmount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [frcount, setFrcount] = useState("");
-  
+  const [frcount, setFrcount] = useState('');
 
   const fetchPosts = async () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/project/",
+        'http://localhost:5005/api/project/',
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log("posts:", posts);
+      console.log('posts:', posts);
       setLoading(false);
     } catch (err) {
-      console.log(err, "error occured");
+      console.log(err, 'error occured');
     }
   };
   useEffect(() => {
     fetchPosts();
   }, []);
 
- 
-
   const registerDonate = () => {
+    console.log(frcount, amount);
+    // frCount holds => frCount and amount holds amount donated.
+    // call doDonate(frCount, amount).then......
+    // countOfFunding().then((frcount) => {
+    //   console.log('count:', frcount);
+    //   setFrcount(frcount);
+    //   alert(frcount);
 
-    countOfFunding().then((frcount) => {
-      console.log("count:", frcount);
-      setFrcount(frcount);
-        alert(frcount);
-
-         doDonate(frcount, amount)
-      .then((tx) => {
-        console.log(tx);
-        setDonated(true);
-        alert(`${amount} & ${frcount}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log("frcount:", frcount);
-    console.log(amount);
-    });
+    //   doDonate(frcount, amount)
+    //     .then((tx) => {
+    //       console.log(tx);
+    //       setDonated(true);
+    //       alert(`${amount} & ${frcount}`);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    //   console.log('frcount:', frcount);
+    //   console.log(amount);
+    // });
   };
+
   const handleCross = () => {
     setShow(false);
   };
@@ -180,8 +179,8 @@ const Projects = ({ donate }) => {
             <H1>Charity is An Act of A soft Heart.</H1>
             <Label>Enter Amount to donate</Label>
             <Input
-              type="string"
-              placeholder="amount"
+              type='string'
+              placeholder='amount'
               onChange={(e) => setAmount(e.target.value)}
             />
             <Button onClick={registerDonate}>ok</Button>
@@ -195,6 +194,7 @@ const Projects = ({ donate }) => {
           setFrcount={setFrcount}
           key={item.id}
           donate={donate}
+          frcount={frcount}
         />
       ))}
     </Container>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { countOfFunding } from "../../utils/getBlockchainData";
-import { getRaiseFunds } from "../../Web3Client";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { countOfFunding } from '../../utils/getBlockchainData';
+import { getRaiseFunds } from '../../Web3Client';
 
 const Container = styled.div`
   flex: 1;
@@ -86,31 +86,43 @@ const Line = styled.div`
   background: #0ebeff;
 `;
 
-const Project = ({ item, donate, show, setFrcount }) => {
-  const [dAmount, setDAmount] = useState("");
-  const [count, setCount] = useState("");
+const DAmount = ({ frCount, setDAmount, dAmount }) => {
+  getRaiseFunds(frCount)
+    .then((dAmount) => {
+      setDAmount(dAmount);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return <>{dAmount.donated}</>;
+};
+
+const Project = ({ item, donate, show, setFrcount, frcount }) => {
+  const [dAmount, setDAmount] = useState('');
+  const [count, setCount] = useState('');
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
-    console.log(_id);
+    alert(frcount);
+    // console.log();
   };
-  const getDonatedAmount = () => {
-    countOfFunding().then((count) => {
-      console.log("count:", count);
-      setCount(count);
-      getRaiseFunds(count)
-        .then((dAmount) => {
-          setDAmount(dAmount);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  };
+  // const getDonatedAmount = () => {
+  //   countOfFunding().then((count) => {
+  //     console.log("count:", count);
+  //     setCount(count);
+  //     getRaiseFunds(count)
+  //       .then((dAmount) => {
+  //         setDAmount(dAmount);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   });
+  // };
 
-  useEffect(() => {
-    getDonatedAmount();
-  }, []);
+  // useEffect(() => {
+  //   getDonatedAmount();
+  // }, []);
 
   return (
     <Container>
@@ -124,11 +136,20 @@ const Project = ({ item, donate, show, setFrcount }) => {
         <Label>Donations (SYT)</Label>
         {/* <Count></Count> */}
 
-        <Title>{dAmount.donated}</Title>
+        <Title>
+          <DAmount
+            frCount={item.frCount}
+            setDAmount={setDAmount}
+            dAmount={dAmount}
+          />
+          {/* {dAmount.donated} */}
+        </Title>
         <Title>{item.targetedArea}</Title>
         <Status>{item.status}</Status>
         {donate && (
-          <Dbutton onClick={() => handleDonate(count)}>DONATE NOW</Dbutton>
+          <Dbutton onClick={() => handleDonate(item.frCount)}>
+            DONATE NOW
+          </Dbutton>
         )}
       </Info>
     </Container>
