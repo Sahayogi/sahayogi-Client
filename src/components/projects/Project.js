@@ -86,19 +86,19 @@ const Line = styled.div`
   background: #0ebeff;
 `;
 
-const Project = ({ item, donate, show, setProjectId }) => {
+const Project = ({ item, donate, show, setFrcount }) => {
   const [dAmount, setDAmount] = useState("");
-  const [pcount, setPcount] = useState("");
+  const [count, setCount] = useState("");
   const handleDonate = (_id) => {
     show((prev) => !prev);
-    setProjectId(_id);
+    setFrcount(_id);
     console.log(_id);
   };
   const getDonatedAmount = () => {
-    countOfFunding().then((pcount) => {
-      console.log("count:", pcount);
-      setPcount(pcount);
-      getRaiseFunds(pcount)
+    countOfFunding().then((count) => {
+      console.log("count:", count);
+      setCount(count);
+      getRaiseFunds(count)
         .then((dAmount) => {
           setDAmount(dAmount);
         })
@@ -128,7 +128,7 @@ const Project = ({ item, donate, show, setProjectId }) => {
         <Title>{item.targetedArea}</Title>
         <Status>{item.status}</Status>
         {donate && (
-          <Dbutton onClick={() => handleDonate(item.relateBlockProj)}>DONATE NOW</Dbutton>
+          <Dbutton onClick={() => handleDonate(count)}>DONATE NOW</Dbutton>
         )}
       </Info>
     </Container>

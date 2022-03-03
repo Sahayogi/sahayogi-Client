@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { projects } from "../constants/Constant";
 import { doDonate } from "../../Web3Client";
+import { countOfFunding } from "../../utils/getBlockchainData";
 import Project from "./Project";
 import axios from "axios";
+
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -111,10 +113,11 @@ const Label = styled.label`
 const Projects = ({ donate }) => {
   const [show, setShow] = useState(false);
   const [donated, setDonated] = useState(false);
-  const [projectId, setProjectId] = useState("");
   const [amount, setAmount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [frcount, setFrcount] = useState("");
+  
 
   const fetchPosts = async () => {
     try {
@@ -141,19 +144,27 @@ const Projects = ({ donate }) => {
     fetchPosts();
   }, []);
 
+ 
+
   const registerDonate = () => {
-    doDonate(projectId, amount)
+
+    countOfFunding().then((frcount) => {
+      console.log("count:", frcount);
+      setFrcount(frcount);
+        alert(frcount);
+
+         doDonate(frcount, amount)
       .then((tx) => {
         console.log(tx);
         setDonated(true);
-    alert(`${amount} & ${projectId}`);
-
+        alert(`${amount} & ${frcount}`);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log("projectId:", projectId);
+    console.log("frcount:", frcount);
     console.log(amount);
+    });
   };
   const handleCross = () => {
     setShow(false);
@@ -181,7 +192,7 @@ const Projects = ({ donate }) => {
         <Project
           item={item}
           show={setShow}
-          setProjectId={setProjectId}
+          setFrcount={setFrcount}
           key={item.id}
           donate={donate}
         />
