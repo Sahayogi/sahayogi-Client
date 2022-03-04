@@ -32,27 +32,30 @@ const SubContainer = styled.div`
   justify-content: center;
   align-items: center;
   /* background-color: white; */
-  gap: 4rem;
+  
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
   }
 `;
 const Claim = styled.div`
-  height: 160px;
-  width: 160px;
-  padding: 20px;
+height: 60px;
+width:60px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   display: flex;
   border: none;
-  border-radius: 80px;
+  border-radius: 50%;
   font-weight: bolder;
-  background-color: rgb(61, 60, 60);
+  background-color: white;
   /* background-color: white; */
-  color: white;
+  color: black;
   font-size: 40px;
+  position:absolute;
+  top:19%;
+  z-index: 2;
+  box-shadow: 2px 2px 2px 2px #A9A9A9;
 `;
 const ClaimedBal = styled.button`
   height: 60px;
@@ -73,6 +76,32 @@ const ClaimedBal = styled.button`
   }
 `;
 
+const ClaimDon = styled.div`
+background-color: white;
+justify-content: center;
+width: 450px;
+height:150px;
+padding-top: 70px;
+display: flex;
+border-radius: 10px 10px 15px 15px;
+z-index:1;
+`
+const ClaimBal = styled.div`
+width: 450px;
+height:200px;
+justify-content: center;
+display: flex;
+background-color:#777c7a;
+margin-top:-20px;
+padding-top:40px;
+flex-direction: column;
+align-items: center;
+
+.p{
+  flex:1;
+  padding-bottom: 30px;
+}`
+
 const BeneClaim = () => {
   const [balance, setBalance] = useState(0);
   const fetchBalance = () => {
@@ -91,10 +120,14 @@ const BeneClaim = () => {
         <Claim>
           <FcDisclaimer />
         </Claim>
-        <ClaimedBal>Claim Donation</ClaimedBal>
-        <ClaimedBal onClick={fetchBalance}>Balance</ClaimedBal>
+        <ClaimDon>
+          <ClaimedBal>Claim Donation</ClaimedBal>
+        </ClaimDon>
+        <ClaimBal>
+          <p>Your Balance is {balance}</p>
+          <ClaimedBal onClick={fetchBalance}>Balance</ClaimedBal>
+        </ClaimBal>
 
-        <p>Your Balance is {balance}</p>
       </SubContainer>
     </Container>
   );

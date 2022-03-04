@@ -96,7 +96,7 @@ export const approve = async () => {
   if (!isInitialized) {
     await getBlockchain();
   }
-  return sytContract.methods.approve(selectedAccount, 10000000).send({
+  return sytContract.methods.approve("0xb780522e0941142AA1AA97c6b58440fC618d1C56", 1000000).send({
     from: selectedAccount,
   });
 };

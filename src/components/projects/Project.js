@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { countOfFunding } from '../../utils/getBlockchainData';
 import { getRaiseFunds } from '../../Web3Client';
 
 const Container = styled.div`

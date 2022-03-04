@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getOwnBalance, approve, transact } from "../Web3Client";
+import { getOwnBalance, transact } from "../Web3Client";
 const Container = styled.div`
   height: 100vh;
   background-image: radial-gradient(
@@ -135,7 +135,6 @@ const Balance = styled.div`
 const Transact = () => {
   const [transfer, setTransfer] = useState(false);
   const [balance, setBalance] = useState(0);
-  const [approved, setApproved] = useState(false);
   const fetchBalance = () => {
     getOwnBalance()
       .then((balance) => {
@@ -145,15 +144,7 @@ const Transact = () => {
         console.log(err);
       });
   };
-  const handleApprove = () => {
-    approve()
-      .then((tx) => {
-        setApproved(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
   const initialValues = {
     token: "",
     purpose: "",
@@ -226,12 +217,9 @@ const Transact = () => {
         </PaymentContainer>
         <Side>
           <Balance>
-            <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
-          </Balance>
-          <Balance>
+            <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
             <Label>your current balance is:</Label>
             <Label>{balance}</Label>
-            <ButtonBal onClick={fetchBalance}>Balance</ButtonBal>
           </Balance>
         </Side>
       </Info>
