@@ -28,7 +28,11 @@ const MainPopup = styled.div`
 const Popup = styled.div`
   z-index: 100;
   background-color: white;
-  position: absolute;
+  position: fixed;
+  float: right;
+  bottom: 20%;
+  // left: 200px;
+
   background: #fff;
   border-radius: 5px;
   justify-content: center;
@@ -144,6 +148,18 @@ const Projects = ({ donate }) => {
 
   const registerDonate = () => {
     console.log(frcount, amount);
+    const parseFrcount = parseInt(frcount);
+    doDonate(parseFrcount, amount)
+      .then((tx) => {
+        console.log(tx);
+        setDonated(true);
+        // alert('Donated');
+        alert(`${amount} & ${parseFrcount}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     // frCount holds => frCount and amount holds amount donated.
     // call doDonate(frCount, amount).then......
     // countOfFunding().then((frcount) => {
@@ -192,9 +208,8 @@ const Projects = ({ donate }) => {
           item={item}
           show={setShow}
           setFrcount={setFrcount}
-          key={item.id}
+          key={item._id}
           donate={donate}
-          frcount={frcount}
         />
       ))}
     </Container>

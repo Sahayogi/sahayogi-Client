@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getRaiseFunds } from '../../Web3Client';
@@ -30,6 +31,7 @@ const Image = styled.div`
   align-items: center;
   background-color: #ddd;
   color: gray;
+  position: relative;
 `;
 const Info = styled.div`
   top: 0;
@@ -71,6 +73,9 @@ const Status = styled.div`
   color: #333;
   display: flex;
   align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 20px;
 `;
 const Label = styled.label`
   color: white;
@@ -99,11 +104,19 @@ const DAmount = ({ frCount, setDAmount, dAmount }) => {
 const Project = ({ item, donate, show, setFrcount, frcount }) => {
   const [dAmount, setDAmount] = useState('');
   const [count, setCount] = useState('');
+  const [frData, setFrData] = useState('');
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
-    alert(frcount);
+    alert(_id);
     // console.log();
+  };
+  const FundRaisePart = ({ fundRaisingCount }) => {
+    return <p>{fundRaisingCount}</p>;
+
+    // Get Data from blockchain equivalent to frCount and render donated amount set frData after block call
+
+    return <></>;
   };
   // const getDonatedAmount = () => {
   //   countOfFunding().then((count) => {
@@ -127,24 +140,32 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
     <Container>
       {/* <Image src={item.description} /> */}
       <Image>
+        {item.start && <Status />}
         <label>{item.description}</label>
       </Image>
       <Info>
         <Title>{item.projectName}</Title>
+        {/* <p>{item.frCount}</p> */}
         <Line></Line>
         <Label>Donations (SYT)</Label>
+        {/* <p>{item.collectedToken}</p> */}
         {/* <Count></Count> */}
-
         <Title>
-          <DAmount
-            frCount={item.frCount}
-            setDAmount={setDAmount}
-            dAmount={dAmount}
-          />
+          {/* Render Donated amount using items.frCount which calls contract */}
+          <FundRaisePart fundRaisingCount={item.frCount} />
           {/* {dAmount.donated} */}
         </Title>
         <Title>{item.targetedArea}</Title>
-        <Status>{item.status}</Status>
+        {item.start && (
+          <p>
+            starts at {new Date(parseInt(item.start) * 1000).toLocaleString()}
+          </p>
+        )}
+
+        {item.end && (
+          <p>Ends at {new Date(parseInt(item.end) * 1000).toLocaleString()}</p>
+        )}
+        {/* <Status>{item.frCount}</Status> */}
         {donate && (
           <Dbutton onClick={() => handleDonate(item.frCount)}>
             DONATE NOW
