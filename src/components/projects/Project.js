@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 const Image = styled.div`
   width: 100%;
-  height: 250px;
+  height: 200px;
   border-radius: 1rem 1rem 0 0;
   text-align: center;
   font-size: 20px;
@@ -51,7 +51,7 @@ const Title = styled.h1`
 
 const Dbutton = styled.button`
   border: none;
-  padding: 30px;
+  padding: 15px 30px;
   background-color: green;
   cursor: pointer;
   color: white;

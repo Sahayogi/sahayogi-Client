@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { projects } from '../constants/Constant';
+import { AiOutlineClose } from 'react-icons/ai';
+import { GiCrossedAirFlows } from 'react-icons/gi';
 import { doDonate } from '../../Web3Client';
 import { countOfFunding } from '../../utils/getBlockchainData';
 import Project from './Project';
@@ -102,10 +104,11 @@ const Button = styled.button`
 const CloseButton = styled.button`
   position: relative;
   float: right;
-  background: red;
+  background: none;
+  border: none;
   color: white;
-  top: -5px;
-  right: -5px;
+  top: 10px;
+  right: 10px;
   padding: 10px;
 `;
 const Label = styled.label`
@@ -191,7 +194,9 @@ const Projects = ({ donate }) => {
         <MainPopup>
           <Popup>
             {/* <input type="string" placeholder="id" /> */}
-            <CloseButton onClick={handleCross}>X</CloseButton>
+            <CloseButton onClick={handleCross}>
+              <GiCrossedAirFlows fontSize={28} cursor='pointer' />
+            </CloseButton>
             <H1>Charity is An Act of A soft Heart.</H1>
             <Label>Enter Amount to donate</Label>
             <Input
