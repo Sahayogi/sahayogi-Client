@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getRaiseFunds,claimByBene } from '../../Web3Client';
+import { getRaiseFunds, claimByBene } from '../../Web3Client';
 
 const Container = styled.div`
   flex: 1;
@@ -60,7 +60,7 @@ const Info = styled.div`
   margin-top: 10px;
   margin-bottom: 20px;
 
-  gap:1rem;
+  gap: 1rem;
 `;
 const Title = styled.h1`
   color: white;
@@ -125,7 +125,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
   const [dAmount, setDAmount] = useState('');
   const [count, setCount] = useState('');
   const [frData, setFrData] = useState('');
-  const [claimed,setClaimed] = useState(false);
+  const [claimed, setClaimed] = useState(false);
 
   const handleDonate = (_id) => {
     show((prev) => !prev);
@@ -158,14 +158,15 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
   //   getDonatedAmount();
   // }, []);
   const handleClaimByBene = (projectId) => {
-    claimByBene(projectId).then((tx)=>{
-      console.log(tx);
-      setClaimed(true);
-    }).catch((err)=>{
-      console.log(err);
-    })
-
-    }
+    claimByBene(projectId)
+      .then((tx) => {
+        console.log(tx);
+        setClaimed(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
@@ -201,11 +202,10 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
           <Dbutton onClick={() => handleDonate(item.frCount)}>
             DONATE NOW
           </Dbutton>
-         
         )}
-         <Dbutton onClick={handleClaimByBene}>
-            ClaimbYbENE
-          </Dbutton>
+        <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
+          ClaimbYbENE
+        </Dbutton>
       </Info>
     </Container>
   );
