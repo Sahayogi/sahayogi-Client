@@ -43,6 +43,7 @@ const PaymentContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   height: auto;
+  /* background-color: none; */
 `;
 const ButtonS = styled.div`
   margin-top: 30px;
@@ -57,10 +58,14 @@ const SubmitButton = styled.button`
   color: white;
   width: 100%;
   font-size: 20px;
-  background-color: green;
+  background-color: black;
+
   border-radius: 10px;
   padding: 15px;
   cursor: pointer;
+  &:hover{
+    background-color: grey;
+  }
 `;
 const sharedStyles = css`
   background-color: grey;
@@ -81,10 +86,11 @@ const Form = styled.form`
   max-width: 700px;
   width: 100%;
   height: auto;
-  background-color: white;
+  background-color: none;
+  border: 1px solid grey;
 
   label {
-    color: black;
+    color: white;
     font-size: 20px;
   }
 `;
@@ -104,7 +110,7 @@ const Label = styled.label`
 `;
 
 const ButtonBal = styled.button`
-  background: #2952e3;
+  background: black;
   color: white;
   text-transform: uppercase;
   border: none;
@@ -118,7 +124,7 @@ const ButtonBal = styled.button`
   cursor: pointer;
   font-weight: bolder;
   &:hover {
-    background-color: #2546bd;
+    background-color: grey;
   }
 `;
 const Side = styled.div`

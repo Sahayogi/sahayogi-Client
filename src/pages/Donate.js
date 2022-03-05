@@ -47,7 +47,7 @@ const Esewa = styled.h3`
   padding: 20px;
 `;
 const ButtonBal = styled.button`
-  background: green;
+  background-color: black;
   color: white;
   text-transform: uppercase;
   border: none;
@@ -61,7 +61,7 @@ const ButtonBal = styled.button`
   cursor: pointer;
   font-weight: bolder;
   &:hover {
-    background-color: #2546bd;
+    background-color: grey;
   }
 `;
 const Balance = styled.div`
@@ -70,7 +70,7 @@ const Balance = styled.div`
   margin-top: 20px;
 `;
 const ApproveText = styled.label`
-  color: green;
+  color: grey;
   font-weight: bolder;
 `;
 const Donate = () => {
@@ -100,10 +100,12 @@ const Donate = () => {
           be able to donate.
         </TextContent>
         <h1>THANK YOU !!!</h1>
-        <ApproveText>Before Donating, please get APPROVED</ApproveText>
-        <Balance>
-          <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
-        </Balance>
+        <ApproveCont>
+          <ApproveText>Before Donating, please get APPROVED</ApproveText>
+          <Balance>
+            <ButtonBal onClick={handleApprove}>Approve</ButtonBal>
+          </Balance>
+        </ApproveCont>
       </Instruction>
 
       <Projects donate={true} />
@@ -112,3 +114,13 @@ const Donate = () => {
 };
 
 export default Donate;
+
+const ApproveCont = styled.div`
+  width: 100%;
+  border-bottom: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px;
+`;

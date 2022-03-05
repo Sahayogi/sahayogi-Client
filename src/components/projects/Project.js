@@ -13,7 +13,22 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: black;
+  background-image: linear-gradient(
+    to left,
+    #8c908c,
+    #777c7a,
+    #646969,
+    #535657,
+    #424445,
+    #393b3c,
+    #313233,
+    #292a2b,
+    #262828,
+    #242626,
+    #222323,
+    #202120
+  );
+
   color: #fff;
   border-radius: 2px;
   margin: 15px 15px;
@@ -43,6 +58,9 @@ const Info = styled.div`
   align-content: center;
   flex-direction: column;
   margin-top: 10px;
+  margin-bottom: 20px;
+
+  gap:1rem;
 `;
 const Title = styled.h1`
   color: white;
@@ -52,12 +70,13 @@ const Title = styled.h1`
 const Dbutton = styled.button`
   border: none;
   padding: 15px 30px;
-  background-color: green;
+  /* background-color: rgb(61, 60, 60); */
+  background-color: black;
   cursor: pointer;
   color: white;
   font-weight: 600;
   border-radius: 2px;
-  margin-bottom: 20px;
+  position: relative;
   &:hover {
     background-color: grey;
   }
@@ -86,8 +105,9 @@ const Label = styled.label`
 const Line = styled.div`
   width: 320px;
   height: 5px;
-  margin-top: 10px;
-  background: #0ebeff;
+  margin-top: 20px;
+  /* background: #0ebeff; */
+  background-color: white;
 `;
 
 const DAmount = ({ frCount, setDAmount, dAmount }) => {
