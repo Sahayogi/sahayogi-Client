@@ -32,15 +32,15 @@ const SubContainer = styled.div`
   justify-content: center;
   align-items: center;
   /* background-color: white; */
-  
+
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
   }
 `;
 const Claim = styled.div`
-height: 60px;
-width:60px;
+  height: 60px;
+  width: 60px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -52,10 +52,10 @@ width:60px;
   /* background-color: white; */
   color: black;
   font-size: 40px;
-  position:absolute;
-  top:19%;
+  position: absolute;
+  top: 19%;
   z-index: 2;
-  box-shadow: 2px 2px 2px 2px #A9A9A9;
+  box-shadow: 2px 2px 2px 2px #a9a9a9;
 `;
 const ClaimedBal = styled.button`
   height: 60px;
@@ -77,30 +77,31 @@ const ClaimedBal = styled.button`
 `;
 
 const ClaimDon = styled.div`
-background-color: white;
-justify-content: center;
-width: 450px;
-height:150px;
-padding-top: 70px;
-display: flex;
-border-radius: 10px 10px 15px 15px;
-z-index:1;
-`
+  background-color: white;
+  justify-content: center;
+  width: 450px;
+  height: 150px;
+  padding-top: 70px;
+  display: flex;
+  border-radius: 10px 10px 15px 15px;
+  z-index: 1;
+`;
 const ClaimBal = styled.div`
-width: 450px;
-height:200px;
-justify-content: center;
-display: flex;
-background-color:#777c7a;
-margin-top:-20px;
-padding-top:40px;
-flex-direction: column;
-align-items: center;
+  width: 450px;
+  height: 200px;
+  justify-content: center;
+  display: flex;
+  background-color: #777c7a;
+  margin-top: -20px;
+  padding-top: 40px;
+  flex-direction: column;
+  align-items: center;
 
-.p{
-  flex:1;
-  padding-bottom: 30px;
-}`
+  .p {
+    flex: 1;
+    padding-bottom: 30px;
+  }
+`;
 
 const BeneClaim = () => {
   const [balance, setBalance] = useState(0);
@@ -113,6 +114,9 @@ const BeneClaim = () => {
         console.log(err);
       });
   };
+
+
+  
   return (
     <Container>
       <Beneficiary />
@@ -120,14 +124,11 @@ const BeneClaim = () => {
         <Claim>
           <FcDisclaimer />
         </Claim>
-        <ClaimDon>
-          <ClaimedBal>Claim Donation</ClaimedBal>
-        </ClaimDon>
+       
         <ClaimBal>
           <p>Your Balance is {balance}</p>
           <ClaimedBal onClick={fetchBalance}>Balance</ClaimedBal>
         </ClaimBal>
-
       </SubContainer>
     </Container>
   );

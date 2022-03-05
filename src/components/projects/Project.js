@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getRaiseFunds } from '../../Web3Client';
+import { getRaiseFunds,claimByBene } from '../../Web3Client';
 
 const Container = styled.div`
   flex: 1;
@@ -125,6 +125,8 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
   const [dAmount, setDAmount] = useState('');
   const [count, setCount] = useState('');
   const [frData, setFrData] = useState('');
+  const [claimed,setClaimed] = useState(false);
+
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
@@ -155,6 +157,15 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
   // useEffect(() => {
   //   getDonatedAmount();
   // }, []);
+  const handleClaimByBene = (projectId) => {
+    claimByBene(projectId).then((tx)=>{
+      console.log(tx);
+      setClaimed(true);
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+    }
 
   return (
     <Container>
@@ -190,7 +201,11 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
           <Dbutton onClick={() => handleDonate(item.frCount)}>
             DONATE NOW
           </Dbutton>
+         
         )}
+         <Dbutton onClick={handleClaimByBene}>
+            ClaimbYbENE
+          </Dbutton>
       </Info>
     </Container>
   );

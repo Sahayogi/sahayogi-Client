@@ -1,4 +1,4 @@
-const PROOFS = [
+export const PROOFS = [
   {
     account: "0x0b87859441DCeAeBC608630F8132FD1A1866CeC2",
     proofs: [
@@ -16,3 +16,6 @@ const PROOFS = [
     index: "1",
   },
 ];
+
+// let name = "aman";
+// module.exports = name;
