@@ -1,7 +1,7 @@
-import { style } from "@mui/system";
-import React, { useState } from "react";
-import styled from "styled-components";
-import logo from "../assets/sahayogi.png";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import logo from '../assets/sahayogi.png';
+import axios from 'axios';
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -85,14 +85,45 @@ const Count = styled.label`
 `;
 
 const About = () => {
+  const [data, setData] = useState('');
+  const [error, setError] = useState(false);
+  const fetchPosts = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.get(
+        'http://localhost:5005/api/info/about',
+        config
+      );
+      // console.log(data);
+      // console.log(data.success);
+      // console.log(data.data);
+      setData(data.data);
+      // setPosts(data.data);
+      // console.log('posts:', posts);
+      // setLoading(false);
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError('');
+      }, 5000);
+    }
+  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
     <Container>
       <Header>
-        <Photo src={logo} alt="" />
+        <Photo src={logo} alt='' />
         <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
       </Header>
       <Supply>
         <SupplyC>
+          {error && { error }}
           <ItemName>total supply</ItemName>
           <Count>5</Count>
         </SupplyC>
@@ -100,23 +131,21 @@ const About = () => {
       <Users>
         <Item>
           <ItemName>VENDOR</ItemName>
-          <Count>1</Count>
+          <Count>{data.vendors}</Count>
         </Item>
         <Item>
           <ItemName>Projects</ItemName>
-          <Count>1</Count>
+          <Count>{data.projects}</Count>
         </Item>
         <Item>
           <ItemName>Bank</ItemName>
-          <Count>1</Count>
+          <Count>{data.banks}</Count>
         </Item>
         <Item>
           <ItemName>Beneficiary</ItemName>
-          <Count>1</Count>
+          <Count>{data.beneficiaries}</Count>
         </Item>
       </Users>
-
-     
     </Container>
   );
 };
