@@ -106,6 +106,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('access-token');
     localStorage.removeItem('userLoggedIn');
+    localStorage.removeItem('role');
     navigate('/');
   };
   return (
@@ -142,11 +143,10 @@ const Navbar = () => {
           ) : (
             <ControlButton onClick={handleLogout}>Logout</ControlButton>
           )}
-           
-            <MenuItem>
-              <Metamask />
-            </MenuItem>
-          
+
+          <MenuItem>
+            <Metamask />
+          </MenuItem>
         </NavbarRight>
       </Wrapper>
     </>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getRaiseFunds, claimByBene } from '../../Web3Client';
-
+import { AiOutlineNotification } from 'react-icons/ai';
 const Container = styled.div`
   flex: 1;
   margin: 4px;
@@ -124,7 +124,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
   const [count, setCount] = useState('');
   const [frData, setFrData] = useState('');
   const [claimed, setClaimed] = useState(false);
-
+  const role = localStorage.getItem('role');
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
@@ -208,9 +208,17 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
               DONATE NOW
             </Dbutton>
           )}
-        <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
-          ClaimbYbENE
-        </Dbutton>
+        {!item.frCount && (
+          <p>
+            <AiOutlineNotification />
+            Fund Not Raised
+          </p>
+        )}
+        {role === 'Beneficiary' && item.frCount && (
+          <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
+            Claim
+          </Dbutton>
+        )}
       </Info>
     </Container>
   );

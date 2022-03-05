@@ -147,6 +147,7 @@ const Login = () => {
       console.log(data);
       localStorage.setItem('access-token', data.token);
       localStorage.setItem('userLoggedIn', data.email);
+      localStorage.setItem('role', data.role);
       navigate('/');
     } catch (error) {
       console.log(error.response.data.error);
@@ -177,9 +178,7 @@ const Login = () => {
               </VisibilityButton>
             </PasswordField>
 
-            <LoginButton onClick={handleLogin}>
-             Login
-            </LoginButton>
+            <LoginButton onClick={handleLogin}>Login</LoginButton>
           </LoginForm>
         </Wrapper>
       </LoginRight>
