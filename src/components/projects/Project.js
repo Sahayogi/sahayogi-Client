@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getRaiseFunds, claimByBene } from '../../Web3Client';
@@ -13,22 +12,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-image: linear-gradient(
-    to left,
-    #8c908c,
-    #777c7a,
-    #646969,
-    #535657,
-    #424445,
-    #393b3c,
-    #313233,
-    #292a2b,
-    #262828,
-    #242626,
-    #222323,
-    #202120
-  );
-
+  background-color #000000;
+background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%);
   color: #fff;
   border-radius: 2px;
   margin: 15px 15px;
@@ -47,6 +32,7 @@ const Image = styled.div`
   background-color: #ddd;
   color: gray;
   position: relative;
+  background-color: #2d3436;
 `;
 const Info = styled.div`
   top: 0;
@@ -71,7 +57,8 @@ const Dbutton = styled.button`
   border: none;
   padding: 15px 30px;
   /* background-color: rgb(61, 60, 60); */
-  background-color: black;
+  background-color: #161a1d;
+
   cursor: pointer;
   color: white;
   font-weight: 600;
@@ -81,15 +68,26 @@ const Dbutton = styled.button`
     background-color: grey;
   }
 `;
-const Status = styled.div`
-  background-color: #5cb85c;
+const StatusOpen = styled.div`
+  background-color: green;
   padding: 5px;
-  color: white;
   border: none;
   margin-top: 20px;
   margin-bottom: 30px;
   border-radius: 4px;
-  color: #333;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+`;
+const StatusClosed = styled.div`
+  background-color: orange;
+  padding: 5px;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   position: absolute;
@@ -172,7 +170,12 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
     <Container>
       {/* <Image src={item.description} /> */}
       <Image>
-        {item.start && <Status />}
+        {item.start &&
+          new Date(item.start * 1000) < new Date() &&
+          new Date() < new Date(item.end * 1000) && <StatusOpen />}
+        {item.start && new Date(item.end * 1000) < new Date() && (
+          <StatusClosed />
+        )}
         <label>{item.description}</label>
       </Image>
       <Info>
@@ -198,11 +201,13 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
           <p>Ends at {new Date(parseInt(item.end) * 1000).toLocaleString()}</p>
         )}
         {/* <Status>{item.frCount}</Status> */}
-        {donate && (
-          <Dbutton onClick={() => handleDonate(item.frCount)}>
-            DONATE NOW
-          </Dbutton>
-        )}
+        {/* <ButtonRenderer item={item} /> */}
+        {new Date(item.start * 1000) < new Date() &&
+          new Date() < new Date(item.end * 1000) && (
+            <Dbutton onClick={() => handleDonate(item.frCount)}>
+              DONATE NOW
+            </Dbutton>
+          )}
         <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
           ClaimbYbENE
         </Dbutton>

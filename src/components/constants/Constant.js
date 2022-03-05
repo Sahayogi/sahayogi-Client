@@ -1,6 +1,3 @@
-// import LogoutIcon from "@mui/icons-material/Logout";
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
-
 export const projects = [
   {
     id: 1,
