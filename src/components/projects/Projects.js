@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { GiCrossedAirFlows } from 'react-icons/gi';
-import { doDonate } from '../../Web3Client';
-import Project from './Project';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { GiCrossedAirFlows } from "react-icons/gi";
+import { doDonate } from "../../Web3Client";
+import Project from "./Project";
+import axios from "axios";
 
 const Container = styled.div`
-  min-height: calc(100vh - 80px);
-  display: flex;
   padding: 60px 40px;
   justify-content: space-between;
-  flex-wrap: wrap;
-  @media screen and (max-width: 768px) {
+  @media only screen and (min-width: 280px) and (max-width: 1080px) {
     display: flex;
     flex-direction: column;
   }
@@ -71,7 +68,7 @@ const H1 = styled.h1`
   color: #ddd;
   padding: 20px;
   font-weight: 700;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   line-height: 1.8;
   word-spacing: 10px;
   text-align: center;
@@ -113,33 +110,45 @@ const Label = styled.label`
   text-align: center;
   color: white;
 `;
+const ProjectContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: auto auto auto;
+  @media only screen and (min-width: 280px) and (max-width: 1080px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 const Projects = ({ donate }) => {
   const [show, setShow] = useState(false);
   const [donated, setDonated] = useState(false);
   const [amount, setAmount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [frcount, setFrcount] = useState('');
+  const [frcount, setFrcount] = useState("");
 
   const fetchPosts = async () => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
       const { data } = await axios.get(
-        'http://localhost:5005/api/project/',
+        "http://localhost:5005/api/project/",
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log('posts:', posts);
+      console.log("posts:", posts);
       setLoading(false);
     } catch (err) {
-      console.log(err, 'error occured');
+      console.log(err, "error occured");
     }
   };
   useEffect(() => {
@@ -193,28 +202,30 @@ const Projects = ({ donate }) => {
           <Popup>
             {/* <input type="string" placeholder="id" /> */}
             <CloseButton onClick={handleCross}>
-              <GiCrossedAirFlows fontSize={28} cursor='pointer' />
+              <GiCrossedAirFlows fontSize={28} cursor="pointer" />
             </CloseButton>
             <H1>Charity is An Act of A soft Heart.</H1>
             <Label>Enter Amount to donate</Label>
             <Input
-              type='string'
-              placeholder='amount'
+              type="string"
+              placeholder="amount"
               onChange={(e) => setAmount(e.target.value)}
             />
             <Button onClick={registerDonate}>ok</Button>
           </Popup>
         </MainPopup>
       )}
-      {posts.map((item, index) => (
-        <Project
-          item={item}
-          show={setShow}
-          setFrcount={setFrcount}
-          key={item._id}
-          donate={donate}
-        />
-      ))}
+      <ProjectContainer>
+        {posts.map((item, index) => (
+          <Project
+            item={item}
+            show={setShow}
+            setFrcount={setFrcount}
+            key={item._id}
+            donate={donate}
+          />
+        ))}
+      </ProjectContainer>
     </Container>
   );
 };

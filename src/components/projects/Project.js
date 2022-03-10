@@ -3,19 +3,20 @@ import styled from "styled-components";
 import { getRaiseFunds, claimByBene } from "../../Web3Client";
 import { AiOutlineNotification } from "react-icons/ai";
 const Container = styled.div`
-  flex: 1;
-  margin: 4px;
   position: relative;
   background-color: #111;
-  width: 100vw;
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  background-color: #000000;
-  background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%);
+  background-image: radial-gradient(
+    circle,
+    #3c3d3f,
+    #2f3132,
+    #242525,
+    #191a19,
+    #0d0d0c
+  );
+  /* background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%); */
   color: #fff;
-  border-radius: 2px;
   margin: 15px 15px;
   border-radius: 1rem;
 `;
@@ -32,7 +33,6 @@ const Image = styled.div`
   background-color: #ddd;
   color: gray;
   position: relative;
-  background-color: #2d3436;
 `;
 const Info = styled.div`
   top: 0;
@@ -193,7 +193,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
         <Title>{item.targetedArea}</Title>
         {item.start && (
           <p>
-            starts at {new Date(parseInt(item.start) * 1000).toLocaleString()}
+            Starts at {new Date(parseInt(item.start) * 1000).toLocaleString()}
           </p>
         )}
 
