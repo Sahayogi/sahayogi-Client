@@ -36,10 +36,6 @@ const BeneMenu = () => {
         <MenuLink>Transactions</MenuLink>
       </Link>
      
-      <Link to="/claimdonation">
-        {" "}
-        <MenuLink>Claim Donation</MenuLink>
-      </Link>
     </Container>
   );
 };

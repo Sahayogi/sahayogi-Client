@@ -13,8 +13,7 @@ import {
 } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
 import { sliceWalletAddress } from "../../components/constants/Constant";
-const CADDRESS = "0xd4971aa8F6D5C7381F8c93987D54d5FB76cB4Fe9";
-const  ADDRESS="0x566acb56e7dd7c3f4c2eb2cc89190f310564550c"
+const ADDRESS = "0xb780522e0941142AA1AA97c6b58440fC618d1C56";
 const apikey = "C1ZSWKRYWAZNKY6P2RX7BTTTGCAQ4QS4KJ";
 const endpoints = "https://api-ropsten.etherscan.io/api";
 
@@ -88,17 +87,7 @@ const BeneTransaction = () => {
   const handleEtherScan = async () => {
     const etherscan = await axios.get(
       endpoints +
-      `?module=account
-      &action=tokentx
-      &contractaddress=${CADDRESS}
-      &address=${ADDRESS}t commit -m "
-      &page=1
-      &offset=100
-      &startblock=0
-      &endblock=99999999
-      &sort=asc
-      &apikey=${apikey}`
-        // `?module=account&action=txlist&address=${ADDRESS}&apikey=${apikey}`
+        `?module=account&action=txlist&address=${ADDRESS}&apikey=${apikey}`
     );
     let { result } = etherscan.data;
     setFrom(result);
@@ -138,7 +127,7 @@ const BeneTransaction = () => {
               <TableBody>
                 {from.map((row) => (
                   <TableRow
-                    key={row.transactionIndex}
+                    key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
