@@ -44,7 +44,7 @@ const Info = styled.div`
   align-content: center;
   flex-direction: column;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   gap: 1rem;
 `;
@@ -56,9 +56,7 @@ const Title = styled.h1`
 const Dbutton = styled.button`
   border: none;
   padding: 15px 30px;
-  /* background-color: rgb(61, 60, 60); */
   background-color: #161a1d;
-
   cursor: pointer;
   color: white;
   font-weight: 600;
@@ -95,17 +93,20 @@ const StatusClosed = styled.div`
   left: 20px;
 `;
 const Label = styled.label`
-  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: lightgreen;
   font-weight: bolder;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 
 const Line = styled.div`
-  width: 320px;
-  height: 5px;
+  width: 400px;
+  height: 3px;
   margin-top: 20px;
-  /* background: #0ebeff; */
-  background-color: white;
+  background-color: silver;
 `;
 
 const DAmount = ({ frCount, setDAmount, dAmount }) => {
@@ -180,17 +181,17 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
       </Image>
       <Info>
         <Title>{item.projectName}</Title>
-        {/* <p>{item.frCount}</p> */}
-        <Line></Line>
-        <Label>Donations (SYT)</Label>
-        {/* <p>{item.collectedToken}</p> */}
-        {/* <Count></Count> */}
-        <Title>
-          {/* Render Donated amount using items.frCount which calls contract */}
-          <FundRaisePart fundRaisingCount={item.frCount} />
-          {/* {dAmount.donated} */}
-        </Title>
         <Title>{item.targetedArea}</Title>
+
+        <Line></Line>
+        {item.frCount && (
+          <Label>
+            <Label>DONATIONS</Label>
+            {/* Render Donated amount using items.frCount which calls contract */}
+            <FundRaisePart fundRaisingCount={`${item.frCount} SYT`} />
+            {/* {dAmount.donated} */}
+          </Label>
+        )}
         {item.start && (
           <p>
             Starts at {new Date(parseInt(item.start) * 1000).toLocaleString()}
