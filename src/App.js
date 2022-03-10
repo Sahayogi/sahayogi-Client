@@ -19,7 +19,6 @@ import VendorInfo from "./pages/vendor/VendorInfo";
 import VendorTransaction from "./pages/vendor/VendorTransaction";
 
 import BeneTransaction from "./pages/bene/BeneTransaction";
-import BeneClaim from "./pages/bene/BeneClaim";
 
 const App = () => {
   return (
@@ -39,7 +38,6 @@ const App = () => {
           <Route path="/bankinfo" element={<Info />} />
           <Route path="/banktransaction" element={<BankTransaction />} />
           <Route path="/benetransaction" element={<BeneTransaction />} />
-          <Route path="/claimdonation" element={<BeneClaim />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />

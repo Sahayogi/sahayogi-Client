@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import logo from '../assets/sahayogi.png';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import logo from "../assets/sahayogi.png";
+import axios from "axios";
+import { getTotalSupply } from "../Web3Client";
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -85,17 +86,28 @@ const Count = styled.label`
 `;
 
 const About = () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState("");
   const [error, setError] = useState(false);
+  const [supply, setSupply] = useState(0);
+
+  const handleBlockchain = () => {
+    getTotalSupply()
+      .then((supply) => {
+        setSupply(supply);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const fetchPosts = async () => {
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
       const { data } = await axios.get(
-        'http://localhost:5005/api/info/about',
+        "http://localhost:5005/api/info/about",
         config
       );
       // console.log(data);
@@ -108,24 +120,25 @@ const About = () => {
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
-        setError('');
+        setError("");
       }, 5000);
     }
   };
   useEffect(() => {
     fetchPosts();
+    handleBlockchain();
   }, []);
   return (
     <Container>
       <Header>
-        <Photo src={logo} alt='' />
+        <Photo src={logo} alt="" />
         <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
       </Header>
       <Supply>
         <SupplyC>
           {error && { error }}
           <ItemName>total supply</ItemName>
-          <Count>5</Count>
+          <Count>{supply}</Count>
         </SupplyC>
       </Supply>
       <Users>

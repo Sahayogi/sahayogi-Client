@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { getRaiseFunds, claimByBene } from '../../Web3Client';
-import { AiOutlineNotification } from 'react-icons/ai';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { getRaiseFunds, claimByBene } from "../../Web3Client";
+import { AiOutlineNotification } from "react-icons/ai";
 const Container = styled.div`
   flex: 1;
   margin: 4px;
@@ -12,8 +12,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color #000000;
-background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%);
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%);
   color: #fff;
   border-radius: 2px;
   margin: 15px 15px;
@@ -120,11 +120,11 @@ const DAmount = ({ frCount, setDAmount, dAmount }) => {
 };
 
 const Project = ({ item, donate, show, setFrcount, frcount }) => {
-  const [dAmount, setDAmount] = useState('');
-  const [count, setCount] = useState('');
-  const [frData, setFrData] = useState('');
+  const [dAmount, setDAmount] = useState("");
+  const [count, setCount] = useState("");
+  const [frData, setFrData] = useState("");
   const [claimed, setClaimed] = useState(false);
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem("role");
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
@@ -209,12 +209,15 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
             </Dbutton>
           )}
         {!item.frCount && (
-          <p>
-            <AiOutlineNotification />
-            Fund Not Raised
-          </p>
+          <FundNotification>
+            <Mike>
+              <AiOutlineNotification />
+            </Mike>
+
+            <Notice>Fund Not Raised</Notice>
+          </FundNotification>
         )}
-        {role === 'Beneficiary' && item.frCount && (
+        {role === "Beneficiary" && item.frCount && (
           <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
             Claim
           </Dbutton>
@@ -225,3 +228,16 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
 };
 
 export default Project;
+
+const FundNotification = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: yellow;
+`;
+const Notice = styled.label`
+  color: yellow;
+`;
+const Mike = styled.div`
+  font-weight: 30px;
+`;
