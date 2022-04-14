@@ -125,14 +125,17 @@ const Navbar = () => {
           <Link to='/'>
             <MenuLink>Home</MenuLink>
           </Link>
-          <Link to='/transact'>
-            <MenuLink>Transact</MenuLink>
-          </Link>
           <Link to='/about'>
             <MenuLink>About</MenuLink>
           </Link>
+          <Link to='/transactions'>
+            <MenuLink>Txns</MenuLink>
+          </Link>
           <Link to='/donate'>
             <MenuLink>Donate</MenuLink>
+          </Link>
+          <Link to='/transact'>
+            <MenuLink>Payment</MenuLink>
           </Link>
           <Link to='/donationProject'>
             <MenuLink>Projects</MenuLink>

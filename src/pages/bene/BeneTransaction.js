@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
 import { sliceWalletAddress } from "../../components/constants/Constant";
-const ADDRESS = "0xb780522e0941142AA1AA97c6b58440fC618d1C56";
+const ADDRESS = "0xd4971aa8F6D5C7381F8c93987D54d5FB76cB4Fe9";
 const apikey = "C1ZSWKRYWAZNKY6P2RX7BTTTGCAQ4QS4KJ";
 const endpoints = "https://api-ropsten.etherscan.io/api";
 
@@ -87,7 +87,11 @@ const BeneTransaction = () => {
   const handleEtherScan = async () => {
     const etherscan = await axios.get(
       endpoints +
-        `?module=account&action=txlist&address=${ADDRESS}&apikey=${apikey}`
+      `?module=stats
+      &action=tokensupply
+      &address=${ADDRESS}
+      &apikey=${apikey}`
+        // `?module=account&action=txlist&address=${ADDRESS}&apikey=${apikey}`
     );
     let { result } = etherscan.data;
     setFrom(result);

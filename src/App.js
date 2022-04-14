@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Donate from "./pages/Donate";
 import Transact from "./pages/Transact";
+import Transactions from "./pages/Transactions";
 
 import MidContents from "./components/midcontents/MidContents";
 import DonationProject from "./pages/DonationProject";
@@ -29,7 +30,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/transact" element={<Transact />} />
-
+          <Route path="/transactions" element={<Transactions />} />
           <Route path="/midContents" element={<MidContents />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/donationProject" element={<DonationProject />} />
