@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { GiCrossedAirFlows } from "react-icons/gi";
-import { doDonate } from "../../Web3Client";
-import Project from "./Project";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { GiCrossedAirFlows } from 'react-icons/gi';
+import { doDonate } from '../../Web3Client';
+import Project from './Project';
+import axios from 'axios';
 
 const Container = styled.div`
   padding: 60px 40px;
@@ -68,7 +68,7 @@ const H1 = styled.h1`
   color: #ddd;
   padding: 20px;
   font-weight: 700;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   line-height: 1.8;
   word-spacing: 10px;
   text-align: center;
@@ -128,44 +128,59 @@ const Projects = ({ donate }) => {
   const [amount, setAmount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [frcount, setFrcount] = useState("");
+  const [frcount, setFrcount] = useState('');
 
   const fetchPosts = async () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/project/",
+        'http://localhost:5005/api/project/',
         config
       );
       console.log(data);
       console.log(data.success);
       console.log(data.data);
       setPosts(data.data);
-      console.log("posts:", posts);
+      console.log('posts:', posts);
       setLoading(false);
     } catch (err) {
-      console.log(err, "error occured");
+      console.log(err, 'error occured');
     }
   };
   useEffect(() => {
     fetchPosts();
   }, []);
-
+  const updateTokens = async (frId, amount) => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      await axios.post(
+        'http://localhost:5005/api/project/updateAmount',
+        { frId, amount },
+        config
+      );
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
+  };
   const registerDonate = () => {
     console.log(frcount, amount);
     const parseFrcount = parseInt(frcount);
-   
-    
+
     doDonate(parseFrcount, amount)
       .then((tx) => {
         console.log(tx);
         setDonated(true);
         // alert('Donated');
         // axios call to update tokens
+        updateTokens(parseFrcount, amount);
         alert(`${amount} & ${parseFrcount}`);
       })
       .catch((err) => {
@@ -204,13 +219,13 @@ const Projects = ({ donate }) => {
           <Popup>
             {/* <input type="string" placeholder="id" /> */}
             <CloseButton onClick={handleCross}>
-              <GiCrossedAirFlows fontSize={28} cursor="pointer" />
+              <GiCrossedAirFlows fontSize={28} cursor='pointer' />
             </CloseButton>
             <H1>Charity is An Act of A soft Heart.</H1>
             <Label>Enter Amount to donate</Label>
             <Input
-              type="string"
-              placeholder="amount"
+              type='string'
+              placeholder='amount'
               onChange={(e) => setAmount(e.target.value)}
             />
             <Button onClick={registerDonate}>ok</Button>
