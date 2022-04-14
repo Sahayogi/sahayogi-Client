@@ -186,26 +186,6 @@ const Projects = ({ donate }) => {
       .catch((err) => {
         console.log(err);
       });
-
-    // frCount holds => frCount and amount holds amount donated.
-    // call doDonate(frCount, amount).then......
-    // countOfFunding().then((frcount) => {
-    //   console.log('count:', frcount);
-    //   setFrcount(frcount);
-    //   alert(frcount);
-
-    //   doDonate(frcount, amount)
-    //     .then((tx) => {
-    //       console.log(tx);
-    //       setDonated(true);
-    //       alert(`${amount} & ${frcount}`);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    //   console.log('frcount:', frcount);
-    //   console.log(amount);
-    // });
   };
 
   const handleCross = () => {

@@ -168,7 +168,10 @@ const Transact = () => {
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
       const handleTransfer = (e) => {
-        transact(values.address, values.token)
+        console.log("token value",values.token);
+        const newtokenamount = ((values.token)*(10**18)).toString();
+        console.log("newtokenamount",newtokenamount);
+        transact(values.address, newtokenamount)
           .then((tx) => {
             console.log(tx);
             setTransfer(true);
