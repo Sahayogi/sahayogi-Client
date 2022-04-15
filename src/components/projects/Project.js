@@ -188,7 +188,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
           <Label>
             <Label>DONATIONS</Label>
             {/* Render Donated amount using items.frCount which calls contract */}
-            <FundRaisePart fundRaisingCount={`${item.collectedToken} SYT | Goal : ${item.goal} SYT`} />
+            <FundRaisePart fundRaisingCount={`${(item.collectedToken)/10**18} SYT | Goal : ${(item.goal)/10**18} SYT`} />
             {/* {dAmount.donated} */}
           </Label>
         )}

@@ -10,7 +10,7 @@ import {
   TablePagination,
   TableRow,
   Paper,
-  TableSortLabel 
+  TableSortLabel,
 } from "@mui/material";
 import { AiOutlineEye } from "react-icons/ai";
 import { sliceWalletAddress } from "../components/constants/Constant";
@@ -113,6 +113,9 @@ const Transaction = () => {
                   <TableCell align="left" style={{ minWidth: 170 }}>
                     From
                   </TableCell>
+                  <TableCell align="center" style={{ minWidth: 50 }}>
+                  
+                  </TableCell>
                   <TableCell align="left" style={{ minWidth: 170 }}>
                     To
                   </TableCell>
@@ -144,6 +147,17 @@ const Transaction = () => {
                         <TableCell align="left">
                           {sliceWalletAddress(row.from)}
                         </TableCell>
+                        <TableCell align="center">
+                          <>
+                            {" "}
+                            {row.from ==
+                            0x0000000000000000000000000000000000000000 ? (
+                              <Status>-</Status>
+                            ) : (
+                              <StatusOut>DONATE</StatusOut>
+                            )}
+                          </>
+                        </TableCell>
                         <TableCell align="left">
                           {sliceWalletAddress(row.to)}
                         </TableCell>
@@ -172,3 +186,27 @@ const Transaction = () => {
 };
 
 export default Transaction;
+
+const Status = styled.div`
+  height: 20px;
+  width: 70px;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  background-color: grey;
+  border: none;
+  color: white;
+  /* padding: 5px; */
+  /* border: 2px solid white; */
+`;
+const StatusOut = styled.div`
+  height: 20px;
+  width: 70px;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  background-color: green;
+  border: none;
+  color: white;
+  /* border: 2px solid white; */
+`;

@@ -110,17 +110,17 @@ export const claimByBene = async (projectId) => {
     {
       account: "0xbB729f824D6C8Ca59106dcE008265A74b785aa99",
       proofs: [
-        "0xde2cba2f91718470fef9948176ecd67dabc74f5b05005e6878fe40fef9c7150e",
+        "0x2d04e836cb3b99de12825816e7ba075f8b2d06e222782569ffac244afa45da87",
       ],
-      amount: "300000000000000000000",
+      amount: "7000000000000000000000",
       index: "0",
     },
     {
       account: "0x566ACB56e7Dd7c3F4C2Eb2Cc89190F310564550C",
       proofs: [
-        "0xfab5e83b5b2b21d55f3f3c3154ebc5a4dca06c30b39e9a6a528e038e951386c6",
+        "0xfb1cb31cec049a0bacc4348334a0d82d10616c6ed6688c606f78dc20adaf43e0",
       ],
-      amount: "300000000000000000000",
+      amount: "3000000000000000000000",
       index: "1",
     },
   ].forEach((parameter, index) => {
@@ -206,4 +206,3 @@ export const getFundingCount = async () => {
   }
   return frContract.methods.count().call();
 };
-
