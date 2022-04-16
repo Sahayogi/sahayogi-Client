@@ -165,9 +165,27 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
       .then((tx) => {
         console.log(tx);
         setClaimed(true);
+        toast.success("Claimed Successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to Claim", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -236,7 +254,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
             <Label>DONATIONS</Label>
             <View
               onClick={() => {
-                showInfo(item.relateBlockProj);
+                showInfo(item.frCount);
               }}
             >
               Click to view

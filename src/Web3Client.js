@@ -1,10 +1,10 @@
-import Web3 from 'web3';
-import SahayogiTokenBuild from './abi/SahayogiToken.json';
-import FundRaisingBuild from './abi/FundRaising.json';
-import SahayogiAgencyBuild from './abi/SahayogiAgency.json';
-import { getToken, getUserEmail } from './components/constants/Constant';
-import { PROOFS } from './proofs/proofs';
-import axios from 'axios';
+import Web3 from "web3";
+import SahayogiTokenBuild from "./abi/SahayogiToken.json";
+import FundRaisingBuild from "./abi/FundRaising.json";
+import SahayogiAgencyBuild from "./abi/SahayogiAgency.json";
+import { getToken, getUserEmail } from "./components/constants/Constant";
+import { PROOFS } from "./proofs/proofs";
+import axios from "axios";
 
 let frContract;
 let sytContract;
@@ -30,20 +30,20 @@ console.log(PROOFS);
 const updateWalletAddress = async (accountAddress) => {
   const token = getToken();
   const email = getUserEmail();
-  console.log('UpdateWallet Called');
+  console.log("UpdateWallet Called");
   console.log(`Token`, token);
   if (token) {
     // Axios hit to update corresonding acc
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log('Checkpoint');
+    console.log("Checkpoint");
     try {
       const { data } = await axios.post(
-        'http://localhost:5005/api/wallet/connected',
+        "http://localhost:5005/api/wallet/connected",
         { accountAddress, email },
         config
       );
@@ -56,10 +56,10 @@ const updateWalletAddress = async (accountAddress) => {
 
 export const getBlockchain = async (setAccountAddress) => {
   let provider = window.ethereum;
-  if (typeof provider !== 'undefined') {
+  if (typeof provider !== "undefined") {
     provider
       .request({
-        method: 'eth_requestAccounts',
+        method: "eth_requestAccounts",
       })
       .then((accounts) => {
         selectedAccount = accounts[0];
@@ -74,7 +74,7 @@ export const getBlockchain = async (setAccountAddress) => {
         return;
       });
 
-    window.ethereum.on('accountsChanged', function (accounts) {
+    window.ethereum.on("accountsChanged", function (accounts) {
       selectedAccount = accounts[0];
       console.log(`selected account changed to is ${selectedAccount}`);
     });
@@ -84,16 +84,16 @@ export const getBlockchain = async (setAccountAddress) => {
     sytContract = new web3.eth.Contract(
       SahayogiTokenBuild.abi,
       // SahayogiTokenBuild.networks[networkId].address
-      '0xe600c455278302F0C9eA2399bE9f104897BAe887'
+      "0xe600c455278302F0C9eA2399bE9f104897BAe887"
     );
     frContract = new web3.eth.Contract(
       FundRaisingBuild.abi,
       // FundRaisingBuild.networks[networkId].address
-      '0x39456a87E4a7F1B25e0b5E58f61ba9B41072D4Cd'
+      "0x39456a87E4a7F1B25e0b5E58f61ba9B41072D4Cd"
     );
     saContract = new web3.eth.Contract(
       SahayogiAgencyBuild.abi,
-      '0x1C92c66caA1040195270909bA44D3EA0c9322b6E'
+      "0x1C92c66caA1040195270909bA44D3EA0c9322b6E"
     );
     // let tokenAmount = amount / 10 ** 18;
 
@@ -108,27 +108,27 @@ export const claimByBene = async (projectId) => {
 
   [
     {
-      account: '0xbB729f824D6C8Ca59106dcE008265A74b785aa99',
+      account: "0xbB729f824D6C8Ca59106dcE008265A74b785aa99",
       proofs: [
-        '0x2d04e836cb3b99de12825816e7ba075f8b2d06e222782569ffac244afa45da87',
+        "0xde2cba2f91718470fef9948176ecd67dabc74f5b05005e6878fe40fef9c7150e",
       ],
-      amount: '7000000000000000000000',
-      index: '0',
+      amount: "500000000000000000000",
+      index: "0",
     },
     {
-      account: '0x566ACB56e7Dd7c3F4C2Eb2Cc89190F310564550C',
+      account: "0x566ACB56e7Dd7c3F4C2Eb2Cc89190F310564550C",
       proofs: [
-        '0xfb1cb31cec049a0bacc4348334a0d82d10616c6ed6688c606f78dc20adaf43e0',
+        "0xdd30faff738b35f8d98cc4c819f8132c7373ae2d0954f413ca6fbeb63dc25077",
       ],
-      amount: '3000000000000000000000',
-      index: '1',
+      amount: "300000000000000000000",
+      index: "1",
     },
   ].forEach((parameter, index) => {
-    console.log('Proof ForEach func');
-    console.log('parameter.account', parameter.account.toLowerCase());
-    console.log(' SA', selectedAccount);
+    console.log("Proof ForEach func");
+    console.log("parameter.account", parameter.account.toLowerCase());
+    console.log(" SA", selectedAccount);
     if (parameter.account.toLowerCase() === selectedAccount) {
-      console.log('Matched sa with pa');
+      console.log("Matched sa with pa");
       proof = parameter.proofs;
       amount = parameter.amount;
       currentIndex = index;
@@ -136,7 +136,7 @@ export const claimByBene = async (projectId) => {
     }
   });
 
-  console.log('proof', proof);
+  console.log("proof", proof);
   return saContract.methods
     .claim(projectId, currentIndex, selectedAccount, amount, proof)
     .estimateGas({
@@ -171,8 +171,8 @@ export const approve = async () => {
   }
   return sytContract.methods
     .approve(
-      '0x39456a87E4a7F1B25e0b5E58f61ba9B41072D4Cd',
-      '10000000000000000000000000'
+      "0x39456a87E4a7F1B25e0b5E58f61ba9B41072D4Cd",
+      "10000000000000000000000000"
     )
     .send({
       from: selectedAccount,
