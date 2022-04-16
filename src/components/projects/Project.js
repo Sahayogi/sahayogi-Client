@@ -139,23 +139,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
 
     return <></>;
   };
-  // const getDonatedAmount = () => {
-  //   countOfFunding().then((count) => {
-  //     console.log("count:", count);
-  //     setCount(count);
-  //     getRaiseFunds(count)
-  //       .then((dAmount) => {
-  //         setDAmount(dAmount);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   });
-  // };
 
-  // useEffect(() => {
-  //   getDonatedAmount();
-  // }, []);
   const handleClaimByBene = (projectId) => {
     claimByBene(projectId)
       .then((tx) => {
@@ -188,7 +172,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
           <Label>
             <Label>DONATIONS</Label>
             {/* Render Donated amount using items.frCount which calls contract */}
-            <FundRaisePart fundRaisingCount={`${(item.collectedToken)/10**18} SYT | Goal : ${(item.goal)/10**18} SYT`} />
+            <FundRaisePart fundRaisingCount={`${(item.collectedToken)} SYT | Goal : ${(item.goal)} SYT`} />
             {/* {dAmount.donated} */}
           </Label>
         )}

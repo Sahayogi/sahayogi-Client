@@ -194,6 +194,14 @@ export const doDonate = async (id, amount) => {
     from: selectedAccount,
   });
 };
+export const reFund = async (frId) => {
+  if (!isInitialized) {
+    await getBlockchain();
+  }
+  return frContract.methods.refund(frId).send({
+    from: selectedAccount,
+  });
+};
 export const getRaiseFunds = async (id) => {
   if (!isInitialized) {
     await getBlockchain();

@@ -173,6 +173,8 @@ const Projects = ({ donate }) => {
   const registerDonate = () => {
     console.log(frcount, amount);
     const parseFrcount = parseInt(frcount);
+    // const newamount =(amount.toString())*(10**18);
+    // console.log("amount",newamount);
 
     doDonate(parseFrcount, amount)
       .then((tx) => {

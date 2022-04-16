@@ -4,6 +4,7 @@ import Footer from "../components/footer /Footer";
 import MidContents from "../components/midcontents/MidContents";
 import Projects from "../components/projects/Projects";
 import home from "../assets/home.jpg";
+import Charts from "../components/chart/Charts"
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -26,7 +27,8 @@ const Home = () => {
         <Photo src={home} />
       </Container>
       <MidContents />
-      <Projects />
+      {/* <Projects /> */}
+      <Charts/>
       <Footer />
     </>
   );

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import logo from "../assets/sahayogi.png";
+import Charts from "../components/chart/Charts";
 import axios from "axios";
-import { getTotalSupply } from "../Web3Client";
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -15,10 +14,11 @@ const Container = styled.div`
     #0d0d0c
   );
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   flex-direction: column;
-  gap: 40px;
+  color:white;
+  /* gap: 40px; */
 
   @media only screen and (min-width: 280px) and (max-width: 1080px) {
     flex-direction: column;
@@ -86,79 +86,43 @@ const Count = styled.label`
 `;
 
 const About = () => {
-  const [data, setData] = useState("");
-  const [error, setError] = useState(false);
-  const [supply, setSupply] = useState(0);
-
-  const handleBlockchain = () => {
-    getTotalSupply()
-      .then((supply) => {
-        setSupply(supply);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const fetchPosts = async () => {
+  const [chartData, setChartData] = useState([]);
+  const fetchApi = async () => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/info/about",
+        "http://localhost:5005/api/info/chart",
+
         config
       );
-      // console.log(data);
-      // console.log(data.success);
-      // console.log(data.data);
-      setData(data.data);
-      // setPosts(data.data);
-      // console.log('posts:', posts);
-      // setLoading(false);
-    } catch (error) {
-      setError(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
+      console.log("data:", data);
+      setChartData(data.data);
+      console.log("chartData", chartData);
+
+      if (data.success === true) {
+        console.log("added sucessful");
+      }
+    } catch (err) {
+      console.log(err, "err");
     }
   };
   useEffect(() => {
-    fetchPosts();
-    handleBlockchain();
+    fetchApi();
   }, []);
   return (
     <Container>
-      <Header>
-        <Photo src={logo} alt="" />
-        <Description>CASH AND VOUCHER ASSISTANCE USING BLOCKCHAIN</Description>
-      </Header>
-      <Supply>
-        <SupplyC>
-          {error && { error }}
-          <ItemName>total supply</ItemName>
-          <Count>{supply}</Count>
-        </SupplyC>
-      </Supply>
-      <Users>
-        <Item>
-          <ItemName>VENDOR</ItemName>
-          <Count>{data.vendors}</Count>
-        </Item>
-        <Item>
-          <ItemName>Projects</ItemName>
-          <Count>{data.projects}</Count>
-        </Item>
-        <Item>
-          <ItemName>Bank</ItemName>
-          <Count>{data.banks}</Count>
-        </Item>
-        <Item>
-          <ItemName>Beneficiary</ItemName>
-          <Count>{data.beneficiaries}</Count>
-        </Item>
-      </Users>
+
+      <Charts
+        data={chartData}
+        title="Donation Project Analytics"
+        grid
+        dataKey="goal"
+      />
     </Container>
   );
 };
