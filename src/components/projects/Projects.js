@@ -4,6 +4,8 @@ import { GiCrossedAirFlows } from 'react-icons/gi';
 import { doDonate } from '../../Web3Client';
 import Project from './Project';
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   padding: 60px 40px;
@@ -173,18 +175,35 @@ const Projects = ({ donate }) => {
   const registerDonate = () => {
     console.log(frcount, amount);
     const parseFrcount = parseInt(frcount);
-
-    doDonate(parseFrcount, amount)
+    const newtokenamount = ((amount)*(10**18)).toString();
+    console.log("newtokenamount",newtokenamount);
+    doDonate(parseFrcount, newtokenamount)
       .then((tx) => {
         console.log(tx);
         setDonated(true);
-        // alert('Donated');
-        // axios call to update tokens
         updateTokens(parseFrcount, amount);
-        alert(`${amount} & ${parseFrcount}`);
+        // alert(`${amount} & ${parseFrcount}`);
+        toast.success("Donated Successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to Donate", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -223,6 +242,8 @@ const Projects = ({ donate }) => {
           />
         ))}
       </ProjectContainer>
+      <ToastContainer />
+
     </Container>
   );
 };
