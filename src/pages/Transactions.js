@@ -152,9 +152,9 @@ const Transaction = () => {
                             {" "}
                             {row.from ==
                             0x0000000000000000000000000000000000000000 ? (
-                              <Status>-</Status>
+                              <Status>Initial supply</Status>
                             ) : (
-                              <StatusOut>DONATE</StatusOut>
+                              <StatusOut>Txn</StatusOut>
                             )}
                           </>
                         </TableCell>

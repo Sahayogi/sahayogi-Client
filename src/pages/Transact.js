@@ -3,6 +3,9 @@ import styled, { css } from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getOwnBalance, transact } from "../Web3Client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Container = styled.div`
   height: 100vh;
   background-image: radial-gradient(
@@ -166,7 +169,7 @@ const Transact = () => {
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       const handleTransfer = (e) => {
         console.log("token value",values.token);
         const newtokenamount = ((values.token)*(10**18)).toString();
@@ -175,9 +178,27 @@ const Transact = () => {
           .then((tx) => {
             console.log(tx);
             setTransfer(true);
+            toast.success("Transfered Successfully", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           })
           .catch((err) => {
             console.log(err);
+            toast.error("Transaction Failed", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           });
       };
 
@@ -232,6 +253,8 @@ const Transact = () => {
           </Balance>
         </Side>
       </Info>
+      <ToastContainer />
+
     </Container>
   );
 };
