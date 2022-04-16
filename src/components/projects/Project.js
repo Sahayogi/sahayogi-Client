@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { getRaiseFunds, claimByBene } from "../../Web3Client";
-import { AiOutlineNotification } from "react-icons/ai";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getRaiseFunds, claimByBene } from '../../Web3Client';
+import { AiOutlineNotification } from 'react-icons/ai';
+import { getFrInfo } from '../../Web3Client';
 const Container = styled.div`
   position: relative;
   background-color: #111;
@@ -121,11 +124,11 @@ const DAmount = ({ frCount, setDAmount, dAmount }) => {
 };
 
 const Project = ({ item, donate, show, setFrcount, frcount }) => {
-  const [dAmount, setDAmount] = useState("");
-  const [count, setCount] = useState("");
-  const [frData, setFrData] = useState("");
+  const [dAmount, setDAmount] = useState('');
+  const [count, setCount] = useState('');
+  const [frData, setFrData] = useState('');
   const [claimed, setClaimed] = useState(false);
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem('role');
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
@@ -150,9 +153,23 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
         console.log(err);
       });
   };
+  const showInfo = (frId) => {
+    getFrInfo(frId)
+      .then((information) => {
+        const message = `Donated: ${
+          information.DONATED_ / 10 ** 18
+        } SYT \n Goal: ${information.GOAL_ / 10 ** 18} SYT`;
+        console.log(information);
+        toast.info(message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Container>
+      <ToastContainer />
       {/* <Image src={item.description} /> */}
       <Image>
         {item.start &&
@@ -171,8 +188,13 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
         {item.frCount && (
           <Label>
             <Label>DONATIONS</Label>
-            {/* Render Donated amount using items.frCount which calls contract */}
-            <FundRaisePart fundRaisingCount={`${(item.collectedToken)} SYT | Goal : ${(item.goal)} SYT`} />
+            <div
+              onClick={() => {
+                showInfo(item.relateBlockProj);
+              }}
+            >
+              Click to view
+            </div>
             {/* {dAmount.donated} */}
           </Label>
         )}
@@ -202,7 +224,7 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
             <Notice>Fund Not Raised</Notice>
           </FundNotification>
         )}
-        {role === "Beneficiary" && item.frCount && (
+        {role === 'Beneficiary' && item.frCount && (
           <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
             Claim
           </Dbutton>

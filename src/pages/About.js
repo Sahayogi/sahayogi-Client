@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Charts from "../components/chart/Charts";
-import axios from "axios";
-import {donationData} from "../components/constants/Constant"
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Charts from '../components/chart/Charts';
+import axios from 'axios';
 
 const Container = styled.div`
   min-height: calc(100vh - 80px);
@@ -29,24 +28,24 @@ const About = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
         },
       };
       const { data } = await axios.get(
-        "http://localhost:5005/api/info/chart",
+        'http://localhost:5005/api/info/chart',
 
         config
       );
-      console.log("data:", data);
+      console.log('data:', data);
       setChartData(data.data);
-      console.log("chartData", chartData);
+      console.log('chartData', chartData);
 
       if (data.success === true) {
-        console.log("added sucessful");
+        console.log('added sucessful');
       }
     } catch (err) {
-      console.log(err, "err");
+      console.log(err, 'err');
     }
   };
   useEffect(() => {
@@ -55,10 +54,10 @@ const About = () => {
   return (
     <Container>
       <Charts
-        data={donationData}
-        title="Donation Project Analytics"
+        data={chartData}
+        title='Donation Project Analytics'
         grid
-        dataKey="Donations"
+        dataKey='goal'
       />
     </Container>
   );

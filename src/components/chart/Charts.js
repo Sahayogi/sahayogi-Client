@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   LineChart,
   Line,
@@ -7,7 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 const Container = styled.div`
   background-color: rgb(61, 60, 60);
@@ -26,16 +26,15 @@ const Title = styled.h3`
 `;
 
 const Charts = ({ title, data, dataKey, grid }) => {
- 
   return (
     <Container>
       <Title>{title}</Title>
-      <ResponsiveContainer >
+      <ResponsiveContainer>
         <LineChart width={400} height={400} data={data}>
-          <XAxis dataKey="projects" stroke="lightgrey" />
-          <Line type="monotone" dataKey={dataKey} stroke="green" />
+          <XAxis dataKey='projectName' stroke='lightgrey' />
+          <Line type='monotone' dataKey={dataKey} stroke='green' />
           <Tooltip />
-          <CartesianGrid stroke="grey" strokeDasharray="5 5" />
+          <CartesianGrid stroke='grey' strokeDasharray='5 5' />
         </LineChart>
       </ResponsiveContainer>
     </Container>
