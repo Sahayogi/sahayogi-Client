@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { getRaiseFunds, claimByBene } from '../../Web3Client';
-import { AiOutlineNotification } from 'react-icons/ai';
-import { getFrInfo } from '../../Web3Client';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { getRaiseFunds, claimByBene, reFund } from "../../Web3Client";
+import { AiOutlineNotification } from "react-icons/ai";
+import { getFrInfo } from "../../Web3Client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Container = styled.div`
   position: relative;
   background-color: #111;
@@ -69,6 +69,19 @@ const Dbutton = styled.button`
     background-color: grey;
   }
 `;
+const Rbutton = styled.button`
+  border: none;
+  padding: 15px 30px;
+  background-color: red;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  border-radius: 2px;
+  position: relative;
+  &:hover {
+    background-color: red;
+  }
+`;
 const StatusOpen = styled.div`
   background-color: green;
   padding: 5px;
@@ -111,6 +124,9 @@ const Line = styled.div`
   margin-top: 20px;
   background-color: silver;
 `;
+const View = styled.div`
+  cursor: pointer;
+`;
 
 const DAmount = ({ frCount, setDAmount, dAmount }) => {
   getRaiseFunds(frCount)
@@ -124,11 +140,12 @@ const DAmount = ({ frCount, setDAmount, dAmount }) => {
 };
 
 const Project = ({ item, donate, show, setFrcount, frcount }) => {
-  const [dAmount, setDAmount] = useState('');
-  const [count, setCount] = useState('');
-  const [frData, setFrData] = useState('');
+  const [dAmount, setDAmount] = useState("");
+  const [count, setCount] = useState("");
+  const [frData, setFrData] = useState("");
   const [claimed, setClaimed] = useState(false);
-  const role = localStorage.getItem('role');
+  const [refund, setRefund] = useState(false);
+  const role = localStorage.getItem("role");
   const handleDonate = (_id) => {
     show((prev) => !prev);
     setFrcount(_id);
@@ -151,6 +168,35 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+
+  const handleRefund = (projectId) => {
+    reFund(projectId)
+      .then((tx) => {
+        console.log(tx);
+        setRefund(true);
+        toast.success("Refunded Successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Cannot Refund", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
   const showInfo = (frId) => {
@@ -188,13 +234,13 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
         {item.frCount && (
           <Label>
             <Label>DONATIONS</Label>
-            <div
+            <View
               onClick={() => {
                 showInfo(item.relateBlockProj);
               }}
             >
               Click to view
-            </div>
+            </View>
             {/* {dAmount.donated} */}
           </Label>
         )}
@@ -224,12 +270,19 @@ const Project = ({ item, donate, show, setFrcount, frcount }) => {
             <Notice>Fund Not Raised</Notice>
           </FundNotification>
         )}
-        {role === 'Beneficiary' && item.frCount && (
+        {role === "Beneficiary" && item.frCount && (
           <Dbutton onClick={() => handleClaimByBene(item.relateBlockProj)}>
             Claim
           </Dbutton>
         )}
+        {role === "Beneficiary" && item.frCount && (
+          <Rbutton onClick={() => handleRefund(item.relateBlockProj)}>
+            Refund
+          </Rbutton>
+        )}
       </Info>
+      <ToastContainer />
+      
     </Container>
   );
 };

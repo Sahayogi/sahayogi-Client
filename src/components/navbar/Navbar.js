@@ -1,12 +1,12 @@
-import logo from '../../assets/sahayogi.png';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FaBars } from 'react-icons/fa';
-import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
-import Metamask from '../metamask/Metamask';
+import logo from "../../assets/sahayogi.png";
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FaBars } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import Metamask from "../metamask/Metamask";
 
-import { getToken } from '../constants/Constant';
+import { getToken } from "../constants/Constant";
 
 const Wrapper = styled.div`
   position: sticky;
@@ -101,20 +101,21 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
   const handleLogout = () => {
-    localStorage.removeItem('access-token');
-    localStorage.removeItem('userLoggedIn');
-    localStorage.removeItem('role');
-    navigate('/');
+    localStorage.removeItem("access-token");
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("role");
+    navigate("/");
   };
+  const role = localStorage.getItem("role");
   return (
     <>
       <Wrapper>
         <NavbarLeft>
-          <Link to='/'>
-            <img src={logo} alt='' />
+          <Link to="/">
+            <img src={logo} alt="" />
           </Link>
         </NavbarLeft>
 
@@ -122,24 +123,28 @@ const Navbar = () => {
           {click ? <FaArrowLeft /> : <FaBars />}
         </MobileIcon>
         <NavbarRight>
-          <Link to='/'>
+          <Link to="/">
             <MenuLink>Home</MenuLink>
           </Link>
-          <Link to='/about'>
+          <Link to="/about">
             <MenuLink>About</MenuLink>
           </Link>
-          <Link to='/transactions'>
+          <Link to="/transactions">
             <MenuLink>Txns</MenuLink>
           </Link>
-          <Link to='/donate'>
-            <MenuLink>Donate</MenuLink>
-          </Link>
-          <Link to='/transact'>
+          {role !== "Beneficiary" && (
+            <Link to="/donate">
+              <MenuLink>Donate</MenuLink>
+            </Link>
+          )}
+          <Link to="/transact">
             <MenuLink>Payment</MenuLink>
           </Link>
-          <Link to='/donationProject'>
-            <MenuLink>Projects</MenuLink>
-          </Link>
+          {role === "Beneficiary" && (
+            <Link to="/donationProject">
+              <MenuLink>Projects</MenuLink>
+            </Link>
+          )}
 
           {!getToken() ? (
             <ControlButton onClick={handleLogin}>Login</ControlButton>
