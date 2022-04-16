@@ -11,8 +11,8 @@ import {
 
 const Container = styled.div`
   background-color: rgb(61, 60, 60);
-  padding: 20px;
-  margin: 20px;
+  padding: 50px 40px;
+  margin: 40px;
   height: 700px;
   box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
   -webkit-box-shadow: 15px 19px 11px -6px rgba(237, 230, 230, 0.75);
@@ -30,9 +30,9 @@ const Charts = ({ title, data, dataKey, grid }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <ResponsiveContainer width="100%" aspect={4 / 1}>
-        <LineChart height={600} data={data}>
-          <XAxis dataKey="projectName" stroke="lightgrey" />
+      <ResponsiveContainer >
+        <LineChart width={400} height={400} data={data}>
+          <XAxis dataKey="projects" stroke="lightgrey" />
           <Line type="monotone" dataKey={dataKey} stroke="green" />
           <Tooltip />
           <CartesianGrid stroke="grey" strokeDasharray="5 5" />
